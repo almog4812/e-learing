@@ -2,7 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>מחלות בלוטת התריס | אוניברסיטת בן-גוריון בנגב</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -371,12 +371,175 @@ body {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 99px; }
+
+/* ===== MOBILE HAMBURGER BUTTON ===== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  background: none;
+  border: none;
+}
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--gray-600);
+  border-radius: 99px;
+  transition: all 0.25s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ===== MOBILE OVERLAY ===== */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 90;
+}
+.sidebar-overlay.show { display: block; }
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+@media (max-width: 768px) {
+
+  /* Topbar */
+  .topbar { padding: 0 1rem; height: 54px; gap: 8px; }
+  .topbar-title { font-size: 13px; }
+  .topbar-sub { display: none; }
+  .topbar-progress-wrap { max-width: 120px; margin: 0 0.5rem; }
+  .topbar-time { display: none; }
+  .hamburger { display: flex; }
+
+  /* Sidebar — slide in from right */
+  .sidebar {
+    position: fixed;
+    top: 54px;
+    right: -280px;
+    width: 260px;
+    height: calc(100vh - 54px);
+    z-index: 95;
+    transition: right 0.3s ease;
+    box-shadow: var(--shadow-lg);
+  }
+  .sidebar.open { right: 0; }
+
+  /* Layout */
+  .layout { display: block; }
+  .main-content { padding: 1rem; max-width: 100%; }
+
+  /* Section headers */
+  .section-title { font-size: 20px; }
+  .section-desc { font-size: 14px; }
+
+  /* Card grids — single column */
+  .card-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .clinical-grid { grid-template-columns: 1fr; }
+  .intro-modules { grid-template-columns: 1fr; }
+
+  /* Stat cards */
+  .stat-value { font-size: 16px; }
+
+  /* Tables — horizontal scroll */
+  .mech-table, .diag-grid { 
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 13px;
+  }
+  .mech-table th, .mech-table td { 
+    padding: 0.5rem 0.6rem;
+    font-size: 12px;
+    min-width: 80px;
+  }
+
+  /* HPT diagram */
+  .hpt-box { width: 180px; }
+  .feedback-arrow { display: none; }
+
+  /* Treatment/Imaging tabs — wrap */
+  .treatment-tabs, .imaging-tabs { 
+    gap: 6px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .treatment-tab, .imaging-tab {
+    font-size: 12px;
+    padding: 0.4rem 0.8rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Imaging row */
+  .imaging-row { grid-template-columns: 1fr; }
+  .imaging-img-placeholder { display: none; }
+
+  /* Quiz options */
+  .quiz-opt, .fq-opt, .case-opt {
+    font-size: 14px;
+    padding: 0.75rem 0.85rem;
+  }
+  .opt-badge { width: 24px; height: 24px; font-size: 11px; }
+
+  /* Nav buttons */
+  .nav-row { flex-direction: row; gap: 8px; }
+  .btn { font-size: 13px; padding: 0.55rem 1rem; }
+
+  /* Video card */
+  .yt-card-title { font-size: 14px; }
+
+  /* Final quiz */
+  .final-quiz-wrap .fq-footer { padding: 0.75rem 1rem; }
+  .fq-question { padding: 1.25rem 1rem; }
+  .fq-q-text { font-size: 14px; }
+  .final-quiz-header { padding: 1rem 1.25rem; }
+  .final-quiz-header h2 { font-size: 16px; }
+
+  /* Score circle */
+  .score-circle { width: 100px; height: 100px; }
+  .score-big { font-size: 52px; }
+
+  /* Timeline */
+  .timeline::before { right: 16px; }
+  .tl-item { padding-right: 44px; }
+  .tl-dot { right: 8px; }
+
+  /* Feedback form */
+  #slide-11 iframe { height: 750px; }
+
+  /* Case block */
+  .case-footer { flex-direction: column; gap: 8px; align-items: flex-start; }
+
+  /* Block title */
+  .block-title { font-size: 15px; }
+  .text-block { font-size: 14px; }
+}
+
+@media (max-width: 420px) {
+  .card-grid { grid-template-columns: 1fr; }
+  .section-title { font-size: 17px; }
+  .section-header { padding: 1.25rem 1.25rem; }
+  .main-content { padding: 0.75rem; }
+  .topbar { padding: 0 0.75rem; }
+}
+
 </style>
 </head>
 <body>
 
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 <!-- TOP BAR -->
 <div class="topbar">
+  <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="תפריט">
+    <span></span><span></span><span></span>
+  </button>
   <div class="topbar-brand">
     <img class="topbar-logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iI0U4NjgxQSIvPjx0ZXh0IHg9IjUwIiB5PSI2MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIGZvbnQtc2l6ZT0iMzAiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LWZhbWlseT0iQXJpYWwiPteR16AmcXVvdDvXkjwvdGV4dD48L3N2Zz4=" alt="BGU Logo">
     <div>
@@ -1731,6 +1894,36 @@ function restartFQ() {
   document.getElementById('fq-next-btn').textContent = 'הבא ►';
   document.getElementById('fq-next-btn').disabled = true;
 }
+
+
+// ===== MOBILE SIDEBAR =====
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const btn = document.getElementById('hamburgerBtn');
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('show');
+  btn.classList.toggle('open');
+}
+
+// Close sidebar on nav item click (mobile)
+document.querySelectorAll('.sidebar-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar.classList.contains('open')) {
+      toggleSidebar();
+    }
+  });
+});
+
+// Close sidebar on resize to desktop
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) {
+    document.querySelector('.sidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('show');
+    document.getElementById('hamburgerBtn').classList.remove('open');
+  }
+});
 
 // ===== INIT =====
 document.getElementById('fb-arrow').style.display = 'none';
