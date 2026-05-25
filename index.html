@@ -44,14 +44,17 @@ body {
   min-height: 100vh;
 }
 
-/* Fix mixed Hebrew/English text rendering everywhere */
-p, li, div, td, th, span, .text-block, .quiz-q, .fq-q-text,
-.acc-body, .quiz-feedback, .treatment-panel, .tl-desc,
-.clinical-card li, .highlight, .lg-info-panel, .process-body,
-.flashcard-front, .flashcard-back, .case-text, .case-reveal,
-.sorting-result, .slide-body, .hpt-info {
-  unicode-bidi: plaintext;
+/* Fix mixed Hebrew/English — use isolate on inline English terms */
+.text-block, .quiz-q, .fq-q-text, .acc-body, .quiz-feedback,
+.treatment-panel li, .treatment-panel p, .tl-desc, .clinical-card li,
+.highlight, .lg-info-panel, .process-body, .flashcard-back .fc-detail,
+.case-text, .case-reveal, .sorting-result, .slide-body {
+  direction: rtl;
   text-align: right;
+}
+/* English terms inside Hebrew text — isolate so they don't flip the line */
+strong, .badge, code {
+  unicode-bidi: isolate;
 }
 
 /* ===== TOP BAR ===== */
@@ -1078,7 +1081,7 @@ p, li, div, td, th, span, .text-block, .quiz-q, .fq-q-text,
   </div>
 
   <div class="highlight">
-    <strong>דוגמה:</strong> Subacute thyroiditis גורמת לתירוטוקסיקוזיס <em>ללא</em> יתר-פעילות. הבלוטה ניזוקה ומשחררת הורמונים שנאגרו — אך אינה מייצרת יותר. ה-uptake יהיה נמוך.
+    <strong>דוגמה:</strong> מחלת Subacute thyroiditis גורמת לתירוטוקסיקוזיס <em>ללא</em> יתר-פעילות. הבלוטה ניזוקה ומשחררת הורמונים שנאגרו — אך אינה מייצרת יותר. ה-uptake יהיה נמוך.
   </div>
 
   <div class="quiz-block">
@@ -1160,7 +1163,7 @@ p, li, div, td, th, span, .text-block, .quiz-q, .fq-q-text,
   </div>
 
   <div class="highlight">
-    <strong>כלל מעשי:</strong> <em>Radioactive iodine uptake scan</em> — אם גבוה: מחלה ייצורית (Graves, TMG). אם נמוך: הרס בלוטה (thyroiditis) או מקור חיצוני לאורמוני תריס.
+    <strong>כלל מעשי:</strong> <em>בדיקת ספיגת יוד רדיואקטיבי (Radioactive Iodine Uptake Scan)</em> — אם גבוה: מחלה ייצורית (Graves, TMG). אם נמוך: הרס בלוטה (Thyroiditis) או מקור חיצוני להורמוני תריס.
   </div>
 
   <div class="quiz-block">
@@ -1192,7 +1195,7 @@ p, li, div, td, th, span, .text-block, .quiz-q, .fq-q-text,
   <div class="content-block">
     <div class="block-title">מנגנון המחלה</div>
     <div class="text-block">
-      Graves היא מחלה אוטואימונית שבה נוצרים נוגדנים מסוג <strong>TRAb (TSH receptor antibodies)</strong> כנגד הקולטן ל-TSH. נוגדנים אלו <em>מגרים</em> את הקולטן — גורמים לייצור מתמשך של הורמוני תריס, ללא תלות ב-TSH האמיתי.
+      Graves היא מחלה אוטואימונית שבה נוצרים נוגדנים מסונוגדנים מסוג TRAb <strong>(נוגדני קולטן TSH — TSH Receptor Antibodies)</strong> כנגד הקולטן. נוגדנים אלו <em>מגרים</em> את הקולטן — גורמים לייצור מתמשך של הורמוני תריס, ללא תלות ב-TSH האמיתי.
       <br><br>
       המחלה שכיחה יותר בנשים (10:1), בגיל 20–50. גורמים מחמירים: <strong>עישון</strong> (מחמיר במיוחד את הביטוי העיני), סטרס, לאחר לידה, מחלות ויראליות.
     </div>
@@ -1234,7 +1237,7 @@ p, li, div, td, th, span, .text-block, .quiz-q, .fq-q-text,
         <div class="acc-header" onclick="toggleAcc(this)">
           <span>👁️ 2. Graves Ophthalmopathy (TAO)</span><span class="acc-arrow">▾</span>
         </div>
-        <div class="acc-body">ייחודי ל-Graves (לא מופיע בשאר סיבות יתר הפעילות). נגרם מדלקת אוטואימונית של השרירים והרקמה הרטרואורביטלית. ביטויים: <strong>proptosis (exophthalmos)</strong>, chemosis, diplopia, כאב עיניים. עישון מחמיר משמעותית. מוערך לפי סולם CAS (Clinical Activity Score).</div>
+        <div class="acc-body">ייחודי ל-Graves (לא מופיע בשאר סיבות יתר הפעילות). נגרם מדלקת אוטואימונית של השרירים והרקמה הרטרואורביטלית. ביטויים: בליטת עיניים <strong>(Proptosis/Exophthalmos)</strong>, אדמומיות (Chemosis), ראייה כפולה (Diplopia), כאב עיניים. עישון מחמיר משמעותית. מוערך לפי סולם CAS (Clinical Activity Score).</div>
       </div>
       <div class="acc-item">
         <div class="acc-header" onclick="toggleAcc(this)">
@@ -1368,7 +1371,7 @@ p, li, div, td, th, span, .text-block, .quiz-q, .fq-q-text,
           </div>
           <div class="process-content">
             <div class="process-title">Lugol's Iodine / SSKI — שעה לאחר ATD <span class="process-tag process-tag-urgent">סדר קריטי!</span></div>
-            <div class="process-body">יוד בעודף חוסם שחרור הורמונים (Wolff-Chaikoff). <strong>אסור לתת לפני PTU</strong> — אחרת הבלוטה תשתמש ביוד לסינתזה מסיבית. מינון: Lugol's 8 טיפות כל 6 שעות, או SSKI 5 טיפות כל 6 שעות.</div>
+            <div class="process-body">יוד בעודף חוסם שחרור הורמונים (Wolff-Chaikoff). <strong>אסור לתת לפני PTU</strong> — אחרת הבלוטה תשתמש ביוד לסינתזה מסיבית. מינון: תמיסת לוגול 8 טיפות כל 6 שעות, או SSKI 5 טיפות כל 6 שעות.</div>
           </div>
         </div>
 
@@ -1415,11 +1418,11 @@ p, li, div, td, th, span, .text-block, .quiz-q, .fq-q-text,
     <div class="quiz-opts">
       <div class="quiz-opt" onclick="handleQuiz(this,false,'q5')"><div class="opt-badge">א</div>מיידית עם תחילת ATD</div>
       <div class="quiz-opt" onclick="handleQuiz(this,false,'q5')"><div class="opt-badge">ב</div>אין טעם — AF בתירוטוקסיקוזיס הוא קבוע ודורש אבלציה</div>
-      <div class="quiz-opt" onclick="handleQuiz(this,true,'q5')"><div class="opt-badge">ג</div>כ-50% מהמטופלים יחזרו לסינוס לאחר השגת euthyroidism</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,true,'q5')"><div class="opt-badge">ג</div>כ-50% מהמטופלים יחזרו לסינוס לאחר איזון תפקוד הבלוטה (Euthyroidism)</div>
       <div class="quiz-opt" onclick="handleQuiz(this,false,'q5')"><div class="opt-badge">ד</div>רק לאחר RAI — ATD לבדו אינו מספיק לחזרת מקצב סינוס</div>
     </div>
-    <div class="quiz-feedback fb-correct" id="fb-q5-c">✅ <strong>נכון!</strong> טיפול בתירוטוקסיקוזיס בלבד מחזיר מקצב סינוס ב-<strong>~50% מהמקרים</strong>. יש להמתין 3–4 חודשים לאחר euthyroidism לפני הערכה מחדש. בגיל מבוגר (מעל 50) AF שכיח יותר ועלול להיות הביטוי <strong>היחיד</strong> (Apathetic thyrotoxicosis) — לכן חשוב לבדוק TSH בכל AF חדש.</div>
-    <div class="quiz-feedback fb-wrong" id="fb-q5-w">❌ כ-50% מהמקרים חוזרים לסינוס עם איזון תפקוד התריס בלבד. יש להמתין לאחר השגת euthyroidism לפני אבלציה. TSH תמיד בבדיקה ראשונה ב-AF חדש.</div>
+    <div class="quiz-feedback fb-correct" id="fb-q5-c">✅ <strong>נכון!</strong> טיפול בתירוטוקסיקוזיס בלבד מחזיר מקצב סינוס ב-<strong>~50% מהמקרים</strong>. יש להמתין 3–4 חודשים לאחר איזון תפקוד הבלוטה (Euthyroidism) לפני הערכה מחדש. בגיל מבוגר (מעל 50) AF שכיח יותר ועלול להיות הביטוי <strong>היחיד</strong> (Apathetic thyrotoxicosis) — לכן חשוב לבדוק TSH בכל AF חדש.</div>
+    <div class="quiz-feedback fb-wrong" id="fb-q5-w">❌ כ-50% מהמקרים חוזרים לסינוס עם איזון תפקוד התריס בלבד. יש להמתין לאחר איזון תפקוד הבלוטה לפני אבלציה. TSH תמיד בבדיקה ראשונה ב-AF חדש.</div>
   </div>
 
   <div class="nav-row">
@@ -1618,7 +1621,7 @@ p, li, div, td, th, span, .text-block, .quiz-q, .fq-q-text,
     <p>RAI גורם להרס הדרגתי של תאי התריס. השפעה מלאה תוך 2–3 חודשים — בינתיים ניתן Beta blockers / ATD.</p>
     <ul>
       <li><strong>התוויות נגד מוחלטות:</strong> הריון, הנקה. ניתן להרות 6 חודשים לאחר הטיפול.</li>
-      <li><strong>Ophthalmopathy:</strong> RAI עלול להחמיר TAO! אם יש mild ophthalmopathy במעשן — כיסוי Prednisone. Moderate-severe TAO — RAI אסור.</li>
+      <li><strong>Ophthalmopathy:</strong> RAI עלול להחמיר TAO! אם יש מחלת עיניים קלה (Mild Ophthalmopathy) במעשן — כיסוי בפרדניזון (Prednisone). Moderate-severe TAO — RAI אסור.</li>
       <li><strong>זהירות בקשישים / מחלת לב:</strong> טיפול מוקדם ב-ATD + Beta blocker לפני RAI למניעת thyrotoxic crisis.</li>
       <li><strong>ATD לפני RAI:</strong> להפסיק כמה ימים לפני (אחרת uptake ירד) — אפשר לחדש 3–7 ימים אחרי.</li>
       <li><strong>מגע עם ילדים/הרות:</strong> יש להימנע 5–7 ימים לאחר RAI.</li>
@@ -1629,9 +1632,9 @@ p, li, div, td, th, span, .text-block, .quiz-q, .fq-q-text,
 
   <div class="treatment-panel" id="treatment-surgery">
     <h4>🔪 ניתוח — Total/Near-Total Thyroidectomy</h4>
-    <p>בחירה עדיפה כאשר: זפק גדול מאוד, Graves ophthalmopathy פעילה, relapse לאחר ATD, צעירים, חשד לממאירות.</p>
+    <p>בחירה עדיפה כאשר: זפק גדול מאוד, מחלת עיניים של Graves (Ophthalmopathy) פעילה, חזרת מחלה לאחר ATD, צעירים, חשד לממאירות.</p>
     <ul>
-      <li><strong>הכנה מוכרחת לפני ניתוח:</strong> (1) ATD עד euthyroidism ← (2) Potassium iodide (SSKI) להפחתת וסקולריות הבלוטה ומניעת thyrotoxic crisis.</li>
+      <li><strong>הכנה מוכרחת לפני ניתוח:</strong> (1) תרופות אנטי-תירואידיות (ATD) עד לאיזון הבלוטה ← (2) יוד אשלגן (SSKI) להפחתת אספקת הדם ומניעת משבר תירואיד.</li>
       <li><strong>סיבוכים:</strong> דימום, בצקת גרון, <strong>היפופאראתירואידיזם</strong> (היפוקלצמיה!), פגיעה בעצב חוזר (צרידות) — נדירים בידיים מיומנות.</li>
       <li><strong>תוצאה:</strong> היפותירואידיזם קבוע ← LT4 לכל החיים.</li>
       <li><strong>Graves ophthalmopathy פעילה:</strong> ניתוח עדיף על RAI.</li>
@@ -1645,8 +1648,8 @@ p, li, div, td, th, span, .text-block, .quiz-q, .fq-q-text,
     <ul>
       <li><strong>Beta blockers (Propranolol 20–40 mg/6h)</strong> — מוריד קצב לב, רעד, חרדה. גם מעכב T4→T3. עד שה-ATD פועל.</li>
       <li><strong>Calcium channel blockers</strong> — אם Beta blockers בהתוויית נגד (אסתמה).</li>
-      <li><strong>Lugol's iodine (SSKI)</strong> — לפני ניתוח ובסערת תריס. חוסם הפרשת הורמונים.</li>
-      <li><strong>Selenium</strong> — לטיפול ב-Graves ophthalmopathy קלה-בינונית.</li>
+      <li>יוד לוגול <strong>(Lugol's Iodine / SSKI)</strong> — לפני ניתוח ובסערת תריס. חוסם הפרשת הורמונים.</li>
+      <li><strong>Selenium</strong> — לטיפול במחלת עיניים קלה-בינונית של Graves (Ophthalmopathy).</li>
     </ul>
   </div>
   <div class="treatment-panel" id="treatment-storm">
@@ -1656,8 +1659,8 @@ p, li, div, td, th, span, .text-block, .quiz-q, .fq-q-text,
       <li><strong>גורמים מגרים:</strong> מחלה חריפה (אינפקציה, CVA, טראומה, DKA), ניתוח תריס, RAI במטופל לא מאוזן.</li>
       <li><strong>טיפול — ה"5P":</strong></li>
       <li><strong>PTU במינון גבוה</strong> (עדיף על MMI — מעכב גם T4→T3 conversion).</li>
-      <li><strong>Potassium iodide (SSKI)</strong> — שעה לאחר ה-PTU הראשון! (Wolff-Chaikoff effect). אסור לתת לפני PTU!</li>
-      <li><strong>Propranolol</strong> — מדכא adrenergic + מעכב T4→T3.</li>
+      <li>יוד אשלגן <strong>(SSKI)</strong> — שעה לאחר מנת PTU הראשונה! (אפקט Wolff-Chaikoff). אסור לתת לפני PTU!</li>
+      <li><strong>Propranolol</strong> — מדכא תגובה אדרנרגית (Adrenergic) ומעכב המרת T4→T3.</li>
       <li><strong>Prednisone / Hydrocortisone</strong> — 300 mg IV bolus ואז 100 mg כל 8 שעות.</li>
       <li><strong>Supportive:</strong> ניטור אינטנסיבי, אנטיביוטיקה אם יש זיהום, קירור, O₂, נוזלים IV.</li>
     </ul>
@@ -1758,7 +1761,7 @@ p, li, div, td, th, span, .text-block, .quiz-q, .fq-q-text,
   </div>
 
   <div class="highlight highlight-blue">
-    <strong>Myxedema Coma — חירום!</strong> תת-פעילות חמורה עם שינוי הכרה, היפותרמיה, ברדיקרדיה. <strong>סדר הטיפול קריטי:</strong> (1) <strong>Hydrocortisone IV תחילה</strong> — לכסות אי-ספיקת אדרנל יחסית לפני שהורמוני תריס מגבירים מטבוליזם קורטיזול; (2) הורמוני תריס IV (T4 ± T3); (3) חימום פאסיבי; (4) איזון אלקטרוליטים. מרבית המקרים: קשישים לא מטופלים.
+    <strong>Myxedema Coma — חירום!</strong> תת-פעילות חמורה עם שינוי הכרה, היפותרמיה, ברדיקרדיה. <strong>סדר הטיפול קריטי:</strong> (1) הידרוקורטיזון IV תחילה <strong>(Hydrocortisone)</strong> — לכסות אי-ספיקת אדרנל יחסית לפני שהורמוני תריס מגבירים מטבוליזם קורטיזול; (2) הורמוני תריס IV (T4 ± T3); (3) חימום פאסיבי; (4) איזון אלקטרוליטים. מרבית המקרים: קשישים לא מטופלים.
   </div>
   <div class="content-block" style="margin-top:1.5rem;">
     <div class="block-title">טיפול ב-Hypothyroidism — Levothyroxine (LT4)</div>
@@ -1769,7 +1772,7 @@ p, li, div, td, th, span, .text-block, .quiz-q, .fq-q-text,
         </div>
         <div class="acc-body">
           מינון החלפה מלא: <strong>1.6 mcg/kg/d</strong> (בד"כ 100–150 mcg). מינון פתיחה: 50–100 mcg/d בצעירים בריאים.<br>
-          <strong>לקחת לפחות 30 דקות לפני ארוחת הבוקר.</strong> תרופות רבות מפריעות לספיגה (Calcium, Iron, PPI, Cholestyramine) — <strong>יש להפריד לפחות 4 שעות</strong>.<br>
+          <strong>לקחת לפחות 30 דקות לפני ארוחת הבוקר.</strong> תרופות רבות מפריעות לספיגה — סידן, ברזל, מעכבי משאבת פרוטון (PPI) וכולסטירמין (Cholestyramine) — <strong>יש להפריד לפחות 4 שעות</strong>.<br>
           ניתוח TSH כ-2 חודשים לאחר שינוי מינון. סימפטומים עשויים לחכות 3–6 חודשים.
         </div>
       </div>
@@ -2052,7 +2055,7 @@ p, li, div, td, th, span, .text-block, .quiz-q, .fq-q-text,
         <div class="fq-opt" onclick="handleFQ(this,false,10)">לעצור ATD — 18 חודשים מספיקים בכל מקרה</div>
         <div class="fq-opt" onclick="handleFQ(this,false,10)">להמשיך ATD ל-36 חודשים — TRAb חיובי מצביע על מחלה פעילה</div>
         <div class="fq-opt" onclick="handleFQ(this,true,10)">לדון במעבר לטיפול definitiveׂ (RAI/ניתוח) — TRAb+ לאחר 18 חודש מנבא relapse גבוה</div>
-        <div class="fq-opt" onclick="handleFQ(this,false,10)">להוסיף Selenium — מוריד TRAb ב-Graves</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,10)">להוסיף סלניום (Selenium) — מוריד TRAb ב-Graves</div>
       </div>
     </div>
 
@@ -2345,8 +2348,8 @@ window.addEventListener('resize', () => {
 const lgData = {
   1: { title: '🧠 היפותלמוס', text: 'מפריש <strong>TRH (<span dir="ltr">Thyrotropin-Releasing Hormone</span>)</strong> בתגובה לקור, סטרס ורמות T3/T4 נמוכות. TRH עובר דרך מערכת הפורטל ההיפופיזלית ומגרה את ההיפופיזה להפריש TSH. גם סומטוסטטין, דופמין וגלוקוקורטיקואידים מעכבים את הפרשת TRH.' },
   2: { title: '🫠 היפופיזה הקדמית', text: 'מפרישה <strong>TSH (<span dir="ltr">Thyroid-Stimulating Hormone</span>)</strong> בתגובה ל-TRH. TSH נקשר לקולטנו בבלוטת התריס ← גורם לסינתזה ושחרור T4/T3. כשרמות T3/T4 גבוהות — TSH מדוכא (משוב שלילי). <strong>TSH נמוך = יתר פעילות; TSH גבוה = תת-פעילות ראשונית.</strong>' },
-  3: { title: '🦋 בלוטת התריס', text: 'מייצרת בעיקר <strong>T4 (80%)</strong> ו-T3 (20%). T4 מומר ל-T3 הפעיל ברקמות ע"י <span dir="ltr">Deiodinase</span>. הסינתזה תלויה ב-<strong>יוד + TPO (<span dir="ltr">Thyroid Peroxidase</span>)</strong>. האיסתמוס מחבר את שתי האונות. <span dir="ltr">Parafollicular C-cells</span> מפרישות קלציטונין לוויסות סידן.' },
-  4: { title: '🔄 משוב שלילי (<span dir="ltr">Negative Feedback</span>)', text: '<strong>T3/T4 מדכאים ישירות</strong> הפרשת TSH מההיפופיזה ו-TRH מההיפותלמוס. זהו המנגנון הבסיסי לשמירת הומאוסטזיס. <strong>קליני:</strong> בהיפותירואידיזם ראשוני — T4 נמוך ← המשוב נעדר ← TSH עולה. ב-Graves — TRAb מגרים הקולטן ← ציר הבקרה מופרע לגמרי.' },
+  3: { title: '🦋 בלוטת התריס', text: 'מייצרת בעיקר T4 (80%) ו-T3 (20%). הורמון T4 מומר לאחר מכן ל-T3 הפעיל ברקמות. הסינתזה תלויה ביוד ובאנזים TPO (תירואיד פרוקסידאז). האיסתמוס מחבר את שתי האונות. תאי C הפאראפוליקולריים מפרישים קלציטונין לוויסות סידן.' },
+  4: { title: '🔄 משוב שלילי (<span dir="ltr">Negative Feedback</span>)', text: 'הורמוני T3 ו-T4 <strong>מדכאים ישירות</strong> את הפרשת TSH מההיפופיזה ואת TRH מההיפותלמוס. זהו המנגנון הבסיסי לשמירת הומאוסטזיס. <strong>קליני:</strong> בהיפותירואידיזם ראשוני — רמת T4 נמוכה, המשוב נעדר, ורמת TSH עולה. במחלת Graves — נוגדני TRAb מגרים את הקולטן וציר הבקרה מופרע לגמרי.' },
 };
 let currentLGDot = null;
 function showLGInfo(n, el) {
