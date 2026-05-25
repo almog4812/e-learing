@@ -530,6 +530,213 @@ body {
   .topbar { padding: 0 0.75rem; }
 }
 
+
+/* ===== LABELED GRAPHIC ===== */
+.labeled-graphic-wrap {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 1rem 0;
+  user-select: none;
+}
+.lg-svg-container {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  display: block;
+}
+.lg-dot {
+  position: absolute;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--orange);
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  cursor: pointer;
+  transform: translate(-50%,-50%);
+  transition: transform 0.18s, background 0.18s;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-weight: 800; font-size: 13px;
+  z-index: 5;
+}
+.lg-dot:hover, .lg-dot.active { transform: translate(-50%,-50%) scale(1.2); background: var(--orange-dark); }
+.lg-dot.active { background: var(--teal); }
+.lg-pulse {
+  position: absolute;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(232,104,26,0.3);
+  transform: translate(-50%,-50%);
+  animation: lgpulse 2s infinite;
+  pointer-events: none;
+}
+@keyframes lgpulse {
+  0% { transform: translate(-50%,-50%) scale(1); opacity: 0.7; }
+  70% { transform: translate(-50%,-50%) scale(2); opacity: 0; }
+  100% { transform: translate(-50%,-50%) scale(1); opacity: 0; }
+}
+.lg-tooltip {
+  display: none;
+  position: absolute;
+  background: var(--gray-800);
+  color: white;
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 220px;
+  z-index: 20;
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+}
+.lg-tooltip.show { display: block; }
+.lg-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -6px; right: 14px;
+  border: 6px solid transparent;
+  border-top-color: var(--gray-800);
+  border-bottom: none;
+}
+.lg-info-panel {
+  background: var(--gray-50);
+  border-top: 1px solid var(--gray-200);
+  padding: 1rem 1.25rem;
+  min-height: 80px;
+  font-size: 14px;
+  color: var(--gray-600);
+  line-height: 1.7;
+  transition: all 0.2s;
+}
+.lg-info-panel strong { color: var(--gray-800); }
+
+/* ===== FLASHCARDS ===== */
+.flashcard-section { margin: 1rem 0; }
+.flashcard-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+.flashcard-counter { font-size: 13px; color: var(--gray-400); font-weight: 600; }
+.flashcard-hint { font-size: 12px; color: var(--gray-400); }
+.flashcard-viewport { perspective: 1000px; height: 180px; margin-bottom: 0.75rem; cursor: pointer; }
+.flashcard-inner {
+  position: relative; width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.flashcard-inner.flipped { transform: rotateY(180deg); }
+.flashcard-front, .flashcard-back {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+}
+.flashcard-front {
+  background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+  color: white;
+}
+.flashcard-back {
+  background: var(--white);
+  border: 2px solid var(--orange);
+  transform: rotateY(180deg);
+  color: var(--gray-800);
+}
+.flashcard-front .fc-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; opacity: 0.8; margin-bottom: 0.5rem; }
+.flashcard-front .fc-q { font-size: 17px; font-weight: 700; line-height: 1.4; }
+.flashcard-back .fc-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--orange); margin-bottom: 0.5rem; }
+.flashcard-back .fc-a { font-size: 16px; font-weight: 600; line-height: 1.5; }
+.flashcard-back .fc-detail { font-size: 13px; color: var(--gray-500); margin-top: 6px; line-height: 1.5; }
+.flashcard-dots { display: flex; gap: 6px; justify-content: center; margin-bottom: 0.75rem; }
+.fc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-200); transition: background 0.2s; cursor: pointer; }
+.fc-dot.active { background: var(--orange); }
+.flashcard-btns { display: flex; justify-content: center; gap: 10px; }
+
+/* ===== SORTING ACTIVITY ===== */
+.sorting-wrap { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; margin: 1rem 0; }
+.sorting-header { background: var(--gray-800); color: white; padding: 0.85rem 1.25rem; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.sorting-body { padding: 1.25rem; }
+.sorting-source { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1rem; min-height: 56px; display: flex; flex-wrap: wrap; gap: 8px; }
+.sort-item {
+  background: var(--white); border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm); padding: 6px 14px;
+  font-size: 13px; cursor: grab; user-select: none;
+  transition: all 0.15s; font-weight: 500;
+  display: flex; align-items: center; gap: 6px;
+}
+.sort-item::before { content: '⠿'; color: var(--gray-400); font-size: 11px; }
+.sort-item:hover { border-color: var(--orange); background: var(--orange-light); }
+.sort-item.dragging { opacity: 0.4; cursor: grabbing; }
+.sort-item.correct-item { border-color: var(--green); background: var(--green-light); color: var(--green); cursor: default; }
+.sort-item.wrong-item { border-color: var(--red); background: var(--red-light); color: var(--red); }
+.sorting-categories { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1rem; }
+.sort-cat {
+  border: 2px dashed var(--gray-200); border-radius: var(--radius);
+  padding: 0.85rem; min-height: 120px; transition: all 0.2s;
+}
+.sort-cat.drag-over { border-color: var(--orange); background: var(--orange-light); }
+.sort-cat.correct-cat { border-color: var(--green); border-style: solid; }
+.sort-cat.wrong-cat { border-color: var(--red); border-style: solid; }
+.sort-cat-title { font-size: 13px; font-weight: 700; text-align: center; padding-bottom: 0.5rem; margin-bottom: 0.5rem; border-bottom: 1px solid var(--gray-200); }
+.sort-cat-items { display: flex; flex-wrap: wrap; gap: 6px; min-height: 40px; }
+.sorting-result { padding: 0.85rem 1rem; border-radius: var(--radius-sm); font-size: 14px; display: none; margin-top: 0.5rem; line-height: 1.6; }
+.sorting-result.show { display: block; }
+.sorting-footer { padding: 0.75rem 1.25rem; background: var(--gray-50); border-top: 1px solid var(--gray-200); display: flex; justify-content: space-between; align-items: center; }
+
+/* ===== PROCESS STEPS ===== */
+.process-wrap { margin: 1rem 0; }
+.process-steps { display: flex; flex-direction: column; gap: 0; }
+.process-step {
+  display: flex; gap: 0; cursor: pointer;
+  transition: all 0.2s;
+}
+.process-step-left {
+  display: flex; flex-direction: column; align-items: center;
+  width: 52px; flex-shrink: 0;
+}
+.process-num {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--gray-200); color: var(--gray-600);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 800;
+  transition: all 0.25s; flex-shrink: 0; z-index: 1;
+}
+.process-step.active .process-num, .process-step:hover .process-num {
+  background: var(--orange); color: white;
+  box-shadow: 0 0 0 4px var(--orange-light);
+}
+.process-line { width: 2px; flex: 1; background: var(--gray-200); min-height: 20px; }
+.process-step:last-child .process-line { display: none; }
+.process-content {
+  flex: 1; padding: 0.5rem 0 1.25rem 0;
+}
+.process-title {
+  font-size: 15px; font-weight: 700; color: var(--gray-700);
+  margin-bottom: 4px; display: flex; align-items: center; gap: 8px;
+}
+.process-step.active .process-title { color: var(--orange-dark); }
+.process-body {
+  font-size: 14px; color: var(--gray-600); line-height: 1.7;
+  background: var(--gray-50); border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  border-right: 3px solid var(--orange);
+  display: none;
+  margin-top: 6px;
+}
+.process-body.show { display: block; animation: slideIn 0.2s ease; }
+.process-tag { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 99px; }
+.process-tag-urgent { background: var(--red-light); color: var(--red); }
+.process-tag-normal { background: var(--orange-light); color: var(--orange-dark); }
+.process-tag-done { background: var(--green-light); color: var(--green); }
+
+@media (max-width: 768px) {
+  .sorting-categories { grid-template-columns: 1fr; }
+  .flashcard-viewport { height: 200px; }
+  .lg-tooltip { max-width: 180px; font-size: 12px; }
+}
+
 </style>
 </head>
 <body>
@@ -735,6 +942,105 @@ body {
     </div>
   </div>
 
+  <div class="content-block">
+    <div class="block-title">ציר HPT — לחצו על כל מרכיב לפרטים 🔍</div>
+    <div class="labeled-graphic-wrap">
+      <div class="lg-svg-container" id="lgContainer">
+        <svg viewBox="0 0 560 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;cursor:pointer;">
+          <rect width="560" height="360" fill="#F9F8F6" rx="12"/>
+
+          <!-- ===== HYPOTHALAMUS ===== -->
+          <g id="lg-node-1" onclick="showLGInfo(1, document.getElementById('lg-node-1'))" style="cursor:pointer;">
+            <ellipse cx="280" cy="60" rx="78" ry="42" fill="#FDF0E8" stroke="#E8681A" stroke-width="2.5" class="lg-node-shape"/>
+            <text x="280" y="53" text-anchor="middle" font-family="Heebo,Arial" font-size="14" font-weight="700" fill="#C4520E" pointer-events="none">היפותלמוס</text>
+            <text x="280" y="71" text-anchor="middle" font-family="Heebo,Arial" font-size="11" fill="#E8681A" pointer-events="none">לחץ לפרטים</text>
+            <!-- Number badge -->
+            <circle cx="344" cy="38" r="12" fill="#E8681A"/>
+            <text x="344" y="43" text-anchor="middle" font-family="Arial" font-size="12" font-weight="800" fill="white" pointer-events="none">1</text>
+          </g>
+
+          <!-- Arrow + TRH label -->
+          <line x1="280" y1="104" x2="280" y2="138" stroke="#E8681A" stroke-width="2" stroke-dasharray="5,3" pointer-events="none"/>
+          <polygon points="274,135 286,135 280,146" fill="#E8681A" pointer-events="none"/>
+          <rect x="287" y="112" width="34" height="18" rx="9" fill="#FDF0E8" pointer-events="none"/>
+          <text x="304" y="124" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#E8681A" pointer-events="none">TRH</text>
+
+          <!-- ===== PITUITARY ===== -->
+          <g id="lg-node-2" onclick="showLGInfo(2, document.getElementById('lg-node-2'))" style="cursor:pointer;">
+            <ellipse cx="280" cy="178" rx="68" ry="36" fill="#EBF3FC" stroke="#1A5FA8" stroke-width="2.5" class="lg-node-shape"/>
+            <text x="280" y="172" text-anchor="middle" font-family="Heebo,Arial" font-size="14" font-weight="700" fill="#123E72" pointer-events="none">היפופיזה</text>
+            <text x="280" y="189" text-anchor="middle" font-family="Heebo,Arial" font-size="11" fill="#1A5FA8" pointer-events="none">לחץ לפרטים</text>
+            <circle cx="338" cy="157" r="12" fill="#1A5FA8"/>
+            <text x="338" y="162" text-anchor="middle" font-family="Arial" font-size="12" font-weight="800" fill="white" pointer-events="none">2</text>
+          </g>
+
+          <!-- Arrow + TSH label -->
+          <line x1="280" y1="216" x2="280" y2="250" stroke="#1A5FA8" stroke-width="2" stroke-dasharray="5,3" pointer-events="none"/>
+          <polygon points="274,247 286,247 280,258" fill="#1A5FA8" pointer-events="none"/>
+          <rect x="287" y="224" width="34" height="18" rx="9" fill="#EBF3FC" pointer-events="none"/>
+          <text x="304" y="236" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#1A5FA8" pointer-events="none">TSH</text>
+
+          <!-- ===== THYROID ===== -->
+          <g id="lg-node-3" onclick="showLGInfo(3, document.getElementById('lg-node-3'))" style="cursor:pointer;">
+            <!-- Left lobe -->
+            <ellipse cx="248" cy="295" rx="50" ry="35" fill="#E6F5F3" stroke="#1A7A6E" stroke-width="2.5" class="lg-node-shape"/>
+            <!-- Right lobe -->
+            <ellipse cx="312" cy="295" rx="50" ry="35" fill="#E6F5F3" stroke="#1A7A6E" stroke-width="2.5" class="lg-node-shape"/>
+
+            <text x="280" y="291" text-anchor="middle" font-family="Heebo,Arial" font-size="13" font-weight="800" fill="#0F5A50" pointer-events="none">בלוטת</text>
+            <text x="280" y="308" text-anchor="middle" font-family="Heebo,Arial" font-size="13" font-weight="800" fill="#0F5A50" pointer-events="none">התריס</text>
+            <circle cx="346" cy="272" r="12" fill="#1A7A6E"/>
+            <text x="346" y="277" text-anchor="middle" font-family="Arial" font-size="12" font-weight="800" fill="white" pointer-events="none">3</text>
+          </g>
+
+          <!-- T4+T3 output label -->
+          <text x="280" y="345" text-anchor="middle" font-family="Heebo,Arial" font-size="12" font-weight="700" fill="#0F5A50" pointer-events="none">↓ T4 + T3 לרקמות</text>
+
+          <!-- ===== FEEDBACK ARROW (left side) ===== -->
+          <g id="lg-node-4" onclick="showLGInfo(4, document.getElementById('lg-node-4'))" style="cursor:pointer;">
+            <path d="M 168 295 Q 108 295 108 178 Q 108 60 190 60" stroke="#9A9490" stroke-width="2" fill="none" stroke-dasharray="6,4" pointer-events="stroke"/>
+            <!-- Wider invisible hit area -->
+            <path d="M 168 295 Q 108 295 108 178 Q 108 60 190 60" stroke="transparent" stroke-width="18" fill="none"/>
+            <polygon points="185,54 197,60 185,66" fill="#9A9490" pointer-events="none"/>
+            <rect x="70" y="162" width="56" height="36" rx="8" fill="white" stroke="#9A9490" stroke-width="1.5"/>
+            <text x="98" y="177" text-anchor="middle" font-family="Heebo,Arial" font-size="11" font-weight="700" fill="#5C5752" pointer-events="none">משוב</text>
+            <text x="98" y="191" text-anchor="middle" font-family="Heebo,Arial" font-size="11" font-weight="700" fill="#5C5752" pointer-events="none">שלילי</text>
+            <circle cx="128" cy="162" r="11" fill="#9A9490"/>
+            <text x="128" y="167" text-anchor="middle" font-family="Arial" font-size="11" font-weight="800" fill="white" pointer-events="none">4</text>
+          </g>
+        </svg>
+      </div>
+      <div class="lg-info-panel" id="lgInfoPanel">
+        <span style="color:var(--gray-400)">👆 לחצו על אחד ממרכיבי הציר לקבלת הסבר מפורט</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-block">
+    <div class="block-title">סרטון להעשרה 🎥</div>
+    <div style="background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;margin:0.5rem 0;">
+      <div style="position:relative;padding-bottom:56.25%;background:#000;">
+        <iframe
+          src="https://www.youtube.com/embed/C4q4YkRokVs?si=k4LzZFwYpdFCqlCi"
+          title="YouTube video player"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--gray-800);">Thyroid Hormone Explained</div>
+          <div style="font-size:12px;color:var(--gray-400);">Dr. Mike · ~12 דקות · הסבר מקיף על הורמוני תריס, HPT axis וביטוי קליני</div>
+        </div>
+        <a href="https://www.youtube.com/watch?v=C4q4YkRokVs" target="_blank"
+           style="font-size:12px;color:#FF0000;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:4px;white-space:nowrap;">
+          ▶ פתח ב-YouTube
+        </a>
+      </div>
+    </div>
+  </div>
   <div class="highlight highlight-teal">
     <strong>⚠️ כלל זהב:</strong> ברוב ההפרעות הראשוניות של בלוטת התריס — ה-TSH הוא הסמן הרגיש ביותר. תת-פעילות ראשונית ← TSH גבוה. יתר-פעילות ראשונית ← TSH מדוכא.
   </div>
@@ -1054,9 +1360,82 @@ body {
     </div>
   </div>
 
-  <div class="highlight highlight-teal">
-    <strong>Thyroid Storm — חירום!</strong> מצב של תירוטוקסיקוזיס קיצוני עם קצב לב מעל 140, חום מעל 40°C, הפרעות הכרה, אי ספיקת לב. טיפול: PTU/Methimazole + Lugol's iodine + Propranolol + Hydrocortisone + תיקון הגורם המשקע.
+
+  <div class="content-block" style="margin-top:1.5rem;">
+    <div class="block-title">Thyroid Storm — פרוטוקול טיפול שלב אחר שלב 🚨</div>
+    <div class="process-wrap">
+      <div class="process-steps">
+
+        <div class="process-step" onclick="toggleProcess(this)">
+          <div class="process-step-left">
+            <div class="process-num">1</div>
+            <div class="process-line"></div>
+          </div>
+          <div class="process-content">
+            <div class="process-title">אבחנה וציון Burch-Wartofsky <span class="process-tag process-tag-urgent">דחוף</span></div>
+            <div class="process-body">ציון ≥45 = Thyroid Storm וודאי. סימנים: חום מעל 38.5°C, טכיקרדיה מעל 140, הפרעות CNS (תסיסה, דליריום, קומה), אי-ספיקת לב. יש לאשפז מיידית ב-ICU.</div>
+          </div>
+        </div>
+
+        <div class="process-step" onclick="toggleProcess(this)">
+          <div class="process-step-left">
+            <div class="process-num">2</div>
+            <div class="process-line"></div>
+          </div>
+          <div class="process-content">
+            <div class="process-title">PTU או Methimazole במינון גבוה <span class="process-tag process-tag-urgent">דחוף</span></div>
+            <div class="process-body"><strong>PTU עדיף</strong> — 500-1000mg loading, ואז 250mg כל 4 שעות. מעכב סינתזה + חוסם המרת T4←T3. Methimazole: 20mg כל 4-6 שעות אם PTU אינו זמין. <strong>חייב להיות לפני יוד!</strong></div>
+          </div>
+        </div>
+
+        <div class="process-step" onclick="toggleProcess(this)">
+          <div class="process-step-left">
+            <div class="process-num">3</div>
+            <div class="process-line"></div>
+          </div>
+          <div class="process-content">
+            <div class="process-title">Lugol's Iodine / SSKI — שעה לאחר ATD <span class="process-tag process-tag-urgent">סדר קריטי!</span></div>
+            <div class="process-body">יוד בעודף חוסם שחרור הורמונים (Wolff-Chaikoff). <strong>אסור לתת לפני PTU</strong> — אחרת הבלוטה תשתמש ביוד לסינתזה מסיבית. מינון: Lugol's 8 טיפות כל 6 שעות, או SSKI 5 טיפות כל 6 שעות.</div>
+          </div>
+        </div>
+
+        <div class="process-step" onclick="toggleProcess(this)">
+          <div class="process-step-left">
+            <div class="process-num">4</div>
+            <div class="process-line"></div>
+          </div>
+          <div class="process-content">
+            <div class="process-title">Hydrocortisone IV <span class="process-tag process-tag-normal">במקביל</span></div>
+            <div class="process-body">300mg IV bolus, ואז 100mg כל 8 שעות. מטרה: מניעת אי-ספיקת אדרנל יחסית + עיכוב המרת T4←T3. <strong>לא לחכות לתוצאות קורטיזול בחירום!</strong></div>
+          </div>
+        </div>
+
+        <div class="process-step" onclick="toggleProcess(this)">
+          <div class="process-step-left">
+            <div class="process-num">5</div>
+            <div class="process-line"></div>
+          </div>
+          <div class="process-content">
+            <div class="process-title">Propranolol <span class="process-tag process-tag-normal">במקביל</span></div>
+            <div class="process-body">60-80mg כל 4 שעות PO, או 0.5-1mg IV לאט. מדכא סימפטומים אדרנרגיים + מעכב T4←T3. זהירות: אי-ספיקת לב, אסתמה. אלטרנטיבה: Esmolol IV.</div>
+          </div>
+        </div>
+
+        <div class="process-step" onclick="toggleProcess(this)">
+          <div class="process-step-left">
+            <div class="process-num">6</div>
+            <div class="process-line"></div>
+          </div>
+          <div class="process-content">
+            <div class="process-title">טיפול תומך ואיתור הגורם <span class="process-tag process-tag-done">משלים</span></div>
+            <div class="process-body">קירור פאסיבי (לא Aspirin — מעלה FT4 חופשי!), נוזלים IV, O₂, ניטור לבבי. בחפש גורם משקע: זיהום (הכי שכיח), ניתוח, לידה, הפסקת ATD, RAI.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
+
 
   <div class="quiz-block">
     <div class="quiz-q">❓ גבר בן 72 עם AF (Atrial Fibrillation — פרפור פרוזדורים) חדש שאינו מגיב לקרדיוורסיה חשמלית. ה-TSH (Thyroid-Stimulating Hormone — הורמון מגרה תריס) מדוכא. הוחל Methimazole. מתי ניתן לצפות לחזרה לסינוס?</div>
@@ -1182,6 +1561,49 @@ body {
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <div class="content-block" style="margin-top:1.5rem;">
+    <div class="block-title">פעילות מיון — גרור לקטגוריה הנכונה 🖱️</div>
+    <div class="sorting-wrap">
+      <div class="sorting-header">📊 מיין את המחלות לפי Radioactive Iodine Uptake</div>
+      <div class="sorting-body">
+        <div style="font-size:13px;color:var(--gray-400);margin-bottom:0.75rem;">גרור כל מחלה לקטגוריה המתאימה:</div>
+        <div class="sorting-source" id="sortSource">
+          <div class="sort-item" draggable="true" data-id="graves" data-cat="high" ondragstart="dragStart(event)" ontouchstart="touchStart(event)" ontouchmove="touchMove(event)" ontouchend="touchEnd(event)">Graves disease</div>
+          <div class="sort-item" draggable="true" data-id="tmng" data-cat="high" ondragstart="dragStart(event)" ontouchstart="touchStart(event)" ontouchmove="touchMove(event)" ontouchend="touchEnd(event)">Toxic MNG</div>
+          <div class="sort-item" draggable="true" data-id="subacute" data-cat="low" ondragstart="dragStart(event)" ontouchstart="touchStart(event)" ontouchmove="touchMove(event)" ontouchend="touchEnd(event)">Subacute thyroiditis</div>
+          <div class="sort-item" draggable="true" data-id="silent" data-cat="low" ondragstart="dragStart(event)" ontouchstart="touchStart(event)" ontouchmove="touchMove(event)" ontouchend="touchEnd(event)">Silent thyroiditis</div>
+          <div class="sort-item" draggable="true" data-id="adenoma" data-cat="high" ondragstart="dragStart(event)" ontouchstart="touchStart(event)" ontouchmove="touchMove(event)" ontouchend="touchEnd(event)">Toxic adenoma</div>
+          <div class="sort-item" draggable="true" data-id="ait2" data-cat="low" ondragstart="dragStart(event)" ontouchstart="touchStart(event)" ontouchmove="touchMove(event)" ontouchend="touchEnd(event)">AIT Type II</div>
+        </div>
+        <div class="sorting-categories">
+          <div class="sort-cat" id="cat-high"
+               ondragover="event.preventDefault();this.classList.add('drag-over')"
+               ondragleave="this.classList.remove('drag-over')"
+               ondrop="dropItem(event,'high')">
+            <div class="sort-cat-title" style="color:var(--red);">🔴 Uptake גבוה</div>
+            <div class="sort-cat-items" id="items-high"></div>
+          </div>
+          <div class="sort-cat" id="cat-low"
+               ondragover="event.preventDefault();this.classList.add('drag-over')"
+               ondragleave="this.classList.remove('drag-over')"
+               ondrop="dropItem(event,'low')">
+            <div class="sort-cat-title" style="color:var(--green);">🟢 Uptake נמוך</div>
+            <div class="sort-cat-items" id="items-low"></div>
+          </div>
+        </div>
+        <div class="sorting-result fb-correct" id="sort-correct">✅ <strong>מצוין!</strong> Graves, Toxic MNG ו-Toxic adenoma = ייצור מוגבר → Uptake גבוה. Subacute thyroiditis, Silent thyroiditis ו-AIT Type II = הרס בלוטה → Uptake נמוך. לכן RAI יועיל רק בקבוצה הראשונה!</div>
+        <div class="sorting-result fb-wrong" id="sort-wrong">❌ לא לגמרי. <strong>Uptake גבוה:</strong> Graves, Toxic MNG, Toxic adenoma. <strong>Uptake נמוך:</strong> Subacute thyroiditis, Silent thyroiditis, AIT Type II. נסה שוב!</div>
+      </div>
+      <div class="sorting-footer">
+        <span style="font-size:13px;color:var(--gray-400)" id="sortProgress">0 / 6 מוינו</span>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-outline" onclick="resetSort()" style="font-size:13px;">↺ אפס</button>
+          <button class="btn btn-orange" onclick="checkSort()" id="checkSortBtn" style="font-size:13px;" disabled>בדוק ✓</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="nav-row">
@@ -1413,6 +1835,30 @@ body {
 
 
 <div onclick="window.open('https://www.youtube.com/watch?v=1nqx__Kyfbw','_blank')" style="background:var(--white);border:1.5px solid #FF0000;border-radius:var(--radius);overflow:hidden;cursor:pointer;display:flex;align-items:stretch;margin:1.25rem 0;transition:box-shadow 0.2s,transform 0.15s;" onmouseover="this.style.boxShadow='0 4px 16px rgba(255,0,0,0.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='none';this.style.transform='none'"><div style="background:#FF0000;min-width:88px;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:1.25rem;"><svg width="36" height="26" viewBox="0 0 36 26" fill="none"><rect width="36" height="26" rx="5" fill="rgba(255,255,255,0.15)"/><polygon points="13,7 27,13 13,19" fill="white"/></svg><div style="color:white;font-size:10px;margin-top:6px;font-weight:700;letter-spacing:0.5px;">YouTube</div></div><div style="padding:1rem 1.5rem;flex:1;display:flex;flex-direction:column;justify-content:center;"><div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF0000;margin-bottom:4px;">סרטון וידאו להעשרה</div><div style="font-size:15px;font-weight:700;color:var(--gray-800);margin-bottom:3px;">Hypothyroidism & Hashimoto — Full Review</div><div style="font-size:12px;color:var(--gray-400);margin-bottom:10px;">Osmosis · 6 דקות</div><div style="display:inline-flex;align-items:center;gap:6px;background:#FF0000;color:white;border-radius:6px;padding:5px 14px;font-size:13px;font-weight:600;width:fit-content;">▶ לחץ לצפייה</div></div></div>
+  <div class="content-block">
+    <div class="block-title">סרטון להעשרה 🎥</div>
+    <div style="background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;margin:0.5rem 0;">
+      <div style="position:relative;padding-bottom:56.25%;background:#000;">
+        <iframe
+          src="https://www.youtube.com/embed/wyanDtvx8K0?rel=0&modestbranding=1"
+          title="Hypothyroidism & Hashimoto's Thyroiditis"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--gray-800);">Hypothyroidism & Hashimoto's Thyroiditis</div>
+          <div style="font-size:12px;color:var(--gray-400);">Armando Hasudungan · ~10 דקות · הסבר ויזואלי לסטודנטים — Hashimoto, מנגנון וטיפול</div>
+        </div>
+        <a href="https://www.youtube.com/watch?v=wyanDtvx8K0" target="_blank"
+           style="font-size:12px;color:#FF0000;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:4px;white-space:nowrap;">
+          ▶ פתח ב-YouTube
+        </a>
+      </div>
+    </div>
+  </div>
   <div class="quiz-block">
     <div class="quiz-q">❓ מטופלת עם Hashimoto מטופלת ב-LT4 (Levothyroxine) 150 mcg/d. TSH (Thyroid-Stimulating Hormone — הורמון מגרה תריס)=9 mIU/L (גבוה). היא טוענת לנטילה קבועה. מה הסיבה השכיחה ביותר לצורך במינון גבוה?</div>
     <div class="quiz-opts">
@@ -1924,6 +2370,169 @@ window.addEventListener('resize', () => {
     document.getElementById('hamburgerBtn').classList.remove('open');
   }
 });
+
+
+// ===== LABELED GRAPHIC =====
+const lgData = {
+  1: { title: '🧠 היפותלמוס', text: 'מפריש <strong>TRH (Thyrotropin-Releasing Hormone)</strong> בתגובה לקור, סטרס ורמות T3/T4 נמוכות. TRH עובר דרך מערכת הפורטל ההיפופיזלית ומגרה את ההיפופיזה להפריש TSH. גם סומטוסטטין, דופמין וגלוקוקורטיקואידים מעכבים את הפרשת TRH.' },
+  2: { title: '🫠 היפופיזה הקדמית', text: 'מפרישה <strong>TSH (Thyroid-Stimulating Hormone)</strong> בתגובה ל-TRH. TSH נקשר לקולטנו בבלוטת התריס ← גורם לסינתזה ושחרור T4/T3. כשרמות T3/T4 גבוהות — TSH מדוכא (משוב שלילי). <strong>TSH נמוך = יתר פעילות; TSH גבוה = תת-פעילות ראשונית.</strong>' },
+  3: { title: '🦋 בלוטת התריס', text: 'מייצרת בעיקר <strong>T4 (80%)</strong> ו-T3 (20%). T4 מומר ל-T3 הפעיל ברקמות ע"י Deiodinase. הסינתזה תלויה ב-<strong>יוד + TPO (Thyroid Peroxidase)</strong>. האיסתמוס מחבר את שתי האונות. Parafollicular C-cells מפרישות קלציטונין לוויסות סידן.' },
+  4: { title: '🔄 משוב שלילי (Negative Feedback)', text: '<strong>T3/T4 מדכאים ישירות</strong> הפרשת TSH מההיפופיזה ו-TRH מההיפותלמוס. זהו המנגנון הבסיסי לשמירת הומאוסטזיס. <strong>קליני:</strong> בהיפותירואידיזם ראשוני — T4 נמוך ← המשוב נעדר ← TSH עולה. ב-Graves — TRAb מגרים הקולטן ← ציר הבקרה מופרע לגמרי.' },
+};
+let currentLGDot = null;
+function showLGInfo(n, el) {
+  // Reset all nodes
+  document.querySelectorAll('.lg-node-shape').forEach(s => {
+    s.style.filter = '';
+    s.style.strokeWidth = '2.5';
+  });
+  // Highlight active node shapes
+  if (el) {
+    el.querySelectorAll('.lg-node-shape').forEach(s => {
+      s.style.filter = 'drop-shadow(0 0 6px rgba(232,104,26,0.6))';
+      s.style.strokeWidth = '3.5';
+    });
+  }
+  currentLGDot = n;
+  const d = lgData[n];
+  const panel = document.getElementById('lgInfoPanel');
+  panel.innerHTML = '<strong style="color:var(--orange-dark);font-size:15px;">' + d.title + '</strong><br><br>' + d.text;
+  panel.style.background = 'var(--orange-light)';
+  panel.style.borderTop = '2px solid var(--orange)';
+}
+
+// ===== FLASHCARDS =====
+const fcCards = [
+  { q: 'מה הנוגדן הפתוגני ב-Graves disease?', a: 'TRAb / TSI', d: 'TSH Receptor Antibodies — מגרים ← לא מדכאים ← את הקולטן ל-TSH. ייצור הורמונים ללא שליטה.' },
+  { q: 'מהו מינון ה-Methimazole הרגיל לטיפול ב-Graves?', a: '10–20 mg × 2/d', d: 'בדרך כלל ניתן once daily. T½ = 6 שעות. מגיע ל-Euthyroidism תוך 6–8 שבועות.' },
+  { q: 'מתי PTU עדיף על Methimazole?', a: 'שליש ראשון הריון + Thyroid Storm', d: 'PTU גם מעכב המרת T4←T3 בפריפריה. ב-Thyroid Storm: קריטי! בהריון שליש 2–3: חוזרים ל-Methimazole.' },
+  { q: 'מהי תופעת הלוואי המסוכנת ביותר של ATD?', a: 'אגרנולוציטוזיס (0.3%)', d: 'חום + כאב גרון תחת ATD = הפסק מיד + CBC דחוף! לאחר אגרנולוציטוזיס ← לא חוזרים לאותה קבוצה.' },
+  { q: 'מה הנוגדן האופייני ל-Hashimoto thyroiditis?', a: 'Anti-TPO (TPO = Thyroid Peroxidase)', d: 'חיובי ב-90–95% ממקרי Hashimoto. גם Anti-Tg חיובי ב-60–80%. Anti-TPO חיובי גם ב-80% מ-Graves.' },
+  { q: 'מהו מינון ה-LT4 (Levothyroxine) להחלפה מלאה?', a: '~1.6 mcg/kg/d', d: 'דוגמה: 70 ק"ג ← כ-112 mcg/d. פתיחה בקשישים: 12.5–25 mcg/d. לקחת 30 דקות לפני ארוחה. להפריד 4 שעות מסידן, ברזל, PPI.' },
+];
+let fcCurrent = 0;
+let fcFlipped = false;
+function initFCDots() {
+  const dots = document.getElementById('fcDots');
+  if (!dots) return;
+  dots.innerHTML = '';
+  fcCards.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'fc-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goToCard(i);
+    dots.appendChild(d);
+  });
+}
+function updateFC() {
+  const c = fcCards[fcCurrent];
+  const inner = document.getElementById('fcInner');
+  if (fcFlipped) { inner.classList.remove('flipped'); fcFlipped = false; setTimeout(() => { setFCContent(c); }, 260); }
+  else { setFCContent(c); }
+  document.getElementById('fcCounter').textContent = (fcCurrent + 1) + ' / ' + fcCards.length;
+  document.querySelectorAll('.fc-dot').forEach((d, i) => d.classList.toggle('active', i === fcCurrent));
+}
+function setFCContent(c) {
+  document.getElementById('fcQ').textContent = c.q;
+  document.getElementById('fcA').textContent = c.a;
+  document.getElementById('fcD').innerHTML = c.d;
+}
+function flipCard() {
+  const inner = document.getElementById('fcInner');
+  fcFlipped = !fcFlipped;
+  inner.classList.toggle('flipped', fcFlipped);
+}
+function nextCard() { fcCurrent = (fcCurrent + 1) % fcCards.length; fcFlipped = false; updateFC(); }
+function prevCard() { fcCurrent = (fcCurrent - 1 + fcCards.length) % fcCards.length; fcFlipped = false; updateFC(); }
+function goToCard(n) { fcCurrent = n; fcFlipped = false; updateFC(); }
+document.addEventListener('DOMContentLoaded', initFCDots);
+setTimeout(initFCDots, 300);
+
+// ===== SORTING ACTIVITY =====
+let draggedItem = null;
+let touchItem = null;
+let touchClone = null;
+function dragStart(e) { draggedItem = e.target; e.target.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; }
+document.addEventListener('dragend', () => { if (draggedItem) { draggedItem.classList.remove('dragging'); draggedItem = null; }});
+function dropItem(e, cat) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  if (!draggedItem) return;
+  const itemsCat = document.getElementById('items-' + cat);
+  itemsCat.appendChild(draggedItem);
+  draggedItem.classList.remove('dragging');
+  draggedItem = null;
+  updateSortProgress();
+}
+// Touch support
+function touchStart(e) {
+  touchItem = e.currentTarget;
+  const touch = e.touches[0];
+  touchClone = touchItem.cloneNode(true);
+  touchClone.style.cssText = 'position:fixed;opacity:0.8;z-index:999;pointer-events:none;width:' + touchItem.offsetWidth + 'px;';
+  document.body.appendChild(touchClone);
+  moveTouchClone(touch);
+}
+function touchMove(e) {
+  e.preventDefault();
+  moveTouchClone(e.touches[0]);
+}
+function moveTouchClone(touch) {
+  if (!touchClone) return;
+  touchClone.style.left = (touch.clientX - 40) + 'px';
+  touchClone.style.top = (touch.clientY - 20) + 'px';
+}
+function touchEnd(e) {
+  if (touchClone) { touchClone.remove(); touchClone = null; }
+  if (!touchItem) return;
+  const touch = e.changedTouches[0];
+  const el = document.elementFromPoint(touch.clientX, touch.clientY);
+  const cat = el && (el.closest('#cat-high') ? 'high' : el.closest('#cat-low') ? 'low' : null);
+  if (cat) {
+    document.getElementById('items-' + cat).appendChild(touchItem);
+    updateSortProgress();
+  }
+  touchItem = null;
+}
+function updateSortProgress() {
+  const placed = document.querySelectorAll('#items-high .sort-item, #items-low .sort-item').length;
+  document.getElementById('sortProgress').textContent = placed + ' / 6 מוינו';
+  document.getElementById('checkSortBtn').disabled = placed < 6;
+  document.getElementById('sort-correct').classList.remove('show');
+  document.getElementById('sort-wrong').classList.remove('show');
+}
+function checkSort() {
+  let allCorrect = true;
+  document.querySelectorAll('.sort-item').forEach(item => {
+    const inCat = item.closest('.sort-cat');
+    if (!inCat) return;
+    const catId = inCat.id.replace('cat-', '');
+    if (item.dataset.cat === catId) { item.classList.add('correct-item'); }
+    else { item.classList.add('wrong-item'); allCorrect = false; }
+  });
+  document.getElementById('sort-correct').classList.toggle('show', allCorrect);
+  document.getElementById('sort-wrong').classList.toggle('show', !allCorrect);
+}
+function resetSort() {
+  const source = document.getElementById('sortSource');
+  document.querySelectorAll('.sort-item').forEach(item => {
+    item.classList.remove('correct-item', 'wrong-item', 'dragging');
+    source.appendChild(item);
+  });
+  document.getElementById('sort-correct').classList.remove('show');
+  document.getElementById('sort-wrong').classList.remove('show');
+  document.getElementById('sortProgress').textContent = '0 / 6 מוינו';
+  document.getElementById('checkSortBtn').disabled = true;
+}
+
+// ===== PROCESS STEPS =====
+function toggleProcess(stepEl) {
+  const body = stepEl.querySelector('.process-body');
+  const isOpen = body.classList.contains('show');
+  // Close all
+  document.querySelectorAll('.process-body').forEach(b => b.classList.remove('show'));
+  document.querySelectorAll('.process-step').forEach(s => s.classList.remove('active'));
+  if (!isOpen) { body.classList.add('show'); stepEl.classList.add('active'); }
+}
 
 // ===== INIT =====
 document.getElementById('fb-arrow').style.display = 'none';
