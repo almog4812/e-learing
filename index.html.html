@@ -1,0 +1,1739 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מחלות בלוטת התריס | אוניברסיטת בן-גוריון בנגב</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #E8681A;
+  --orange-dark: #C4520E;
+  --orange-light: #FDF0E8;
+  --orange-mid: #F5A96B;
+  --teal: #1A7A6E;
+  --teal-light: #E6F5F3;
+  --teal-mid: #2AA897;
+  --blue: #1A5FA8;
+  --blue-light: #EBF3FC;
+  --red: #C0392B;
+  --red-light: #FDEDEB;
+  --green: #1E8449;
+  --green-light: #E9F7EF;
+  --gray-50: #F9F8F6;
+  --gray-100: #F0EDE8;
+  --gray-200: #DDD9D2;
+  --gray-400: #9A9490;
+  --gray-600: #5C5752;
+  --gray-800: #2C2A27;
+  --white: #FFFFFF;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.13);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 18px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Heebo', sans-serif;
+  background: var(--gray-50);
+  color: var(--gray-800);
+  direction: rtl;
+  min-height: 100vh;
+}
+
+/* ===== TOP BAR ===== */
+.topbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 0 2rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+.topbar-brand { display: flex; align-items: center; gap: 12px; }
+.topbar-logo { width: 38px; height: 38px; border-radius: 50%; }
+.topbar-title { font-size: 15px; font-weight: 700; color: var(--gray-800); }
+.topbar-sub { font-size: 12px; color: var(--gray-400); }
+.topbar-progress-wrap { display: flex; align-items: center; gap: 12px; flex: 1; max-width: 340px; margin: 0 2rem; }
+.topbar-progress-bar { flex: 1; height: 5px; background: var(--gray-200); border-radius: 99px; overflow: hidden; }
+.topbar-progress-fill { height: 100%; background: var(--orange); border-radius: 99px; transition: width 0.5s ease; width: 0%; }
+.topbar-pct { font-size: 12px; font-weight: 600; color: var(--orange); min-width: 32px; }
+.topbar-time { font-size: 12px; color: var(--gray-400); display: flex; align-items: center; gap: 5px; }
+
+/* ===== LAYOUT ===== */
+.layout { display: flex; min-height: calc(100vh - 60px); }
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 260px;
+  background: var(--white);
+  border-left: 1px solid var(--gray-200);
+  padding: 1.5rem 0;
+  position: sticky;
+  top: 60px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+.sidebar-section { padding: 0 1rem 1rem; }
+.sidebar-section-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gray-400); padding: 0.5rem 0.5rem 0.25rem; }
+.sidebar-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--gray-600);
+  transition: background 0.15s, color 0.15s;
+  margin-bottom: 2px;
+}
+.sidebar-item:hover { background: var(--gray-100); color: var(--gray-800); }
+.sidebar-item.active { background: var(--orange-light); color: var(--orange-dark); font-weight: 600; }
+.sidebar-item.done .si-dot { background: var(--green); }
+.si-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-200); flex-shrink: 0; transition: background 0.3s; }
+.sidebar-item.active .si-dot { background: var(--orange); }
+.si-num { font-size: 10px; color: var(--gray-400); margin-right: auto; }
+
+/* ===== MAIN CONTENT ===== */
+.main-content { flex: 1; padding: 2rem; max-width: 860px; margin: 0 auto; }
+
+/* ===== SLIDES ===== */
+.slide { display: none; animation: slideIn 0.35s ease; }
+.slide.active { display: block; }
+@keyframes slideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ===== SECTION HEADER ===== */
+.section-header {
+  background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+  color: white; border-radius: var(--radius-lg);
+  padding: 2rem 2.5rem; margin-bottom: 2rem;
+  position: relative; overflow: hidden;
+}
+.section-header::before {
+  content: ''; position: absolute; top: -30px; left: -30px;
+  width: 120px; height: 120px; border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+}
+.section-header::after {
+  content: ''; position: absolute; bottom: -20px; right: 30px;
+  width: 80px; height: 80px; border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+}
+.section-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.2); border-radius: 99px;
+  padding: 3px 12px; font-size: 12px; font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+.section-title { font-size: 26px; font-weight: 800; margin-bottom: 0.5rem; line-height: 1.3; }
+.section-desc { font-size: 15px; opacity: 0.9; line-height: 1.6; }
+
+.teal-header { background: linear-gradient(135deg, var(--teal) 0%, #0F5A50 100%); }
+.blue-header { background: linear-gradient(135deg, var(--blue) 0%, #123E72 100%); }
+
+/* ===== CONTENT BLOCKS ===== */
+.content-block { margin-bottom: 1.75rem; }
+.block-title { font-size: 17px; font-weight: 700; color: var(--gray-800); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+.block-title::before { content: ''; width: 3px; height: 20px; background: var(--orange); border-radius: 99px; flex-shrink: 0; }
+.text-block { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 1.5rem; font-size: 15px; line-height: 1.8; color: var(--gray-600); }
+.highlight { background: var(--orange-light); border-right: 3px solid var(--orange); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 1rem 1.25rem; margin: 1rem 0; font-size: 15px; color: var(--gray-800); line-height: 1.7; }
+.highlight-teal { background: var(--teal-light); border-right-color: var(--teal); }
+.highlight-blue { background: var(--blue-light); border-right-color: var(--blue); }
+
+/* ===== CARD GRID ===== */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 1rem 0; }
+.stat-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 1.25rem; text-align: center; }
+.stat-icon { font-size: 28px; margin-bottom: 8px; }
+.stat-label { font-size: 12px; color: var(--gray-400); margin-bottom: 4px; }
+.stat-value { font-size: 20px; font-weight: 700; color: var(--gray-800); }
+
+/* ===== VIDEO EMBED ===== */
+.video-wrap { background: #000; border-radius: var(--radius); overflow: hidden; margin: 1rem 0; position: relative; padding-bottom: 56.25%; }
+.video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+.video-label { font-size: 12px; color: var(--gray-400); margin-top: 6px; text-align: center; }
+
+/* ===== ACCORDION ===== */
+.accordion { margin: 1rem 0; }
+.acc-item { border: 1px solid var(--gray-200); border-radius: var(--radius-sm); margin-bottom: 8px; overflow: hidden; }
+.acc-header { padding: 0.9rem 1.25rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 15px; font-weight: 600; color: var(--gray-800); background: var(--white); user-select: none; transition: background 0.15s; }
+.acc-header:hover { background: var(--gray-50); }
+.acc-header.open { background: var(--orange-light); color: var(--orange-dark); }
+.acc-arrow { transition: transform 0.25s; font-size: 18px; }
+.acc-header.open .acc-arrow { transform: rotate(180deg); }
+.acc-body { display: none; padding: 1rem 1.25rem; font-size: 14px; color: var(--gray-600); line-height: 1.8; background: var(--white); border-top: 1px solid var(--gray-200); }
+.acc-body.open { display: block; }
+
+/* ===== HPT DIAGRAM ===== */
+.hpt-diagram { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 2rem; margin: 1rem 0; }
+.hpt-boxes { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.hpt-box {
+  background: var(--gray-100); border: 2px solid var(--gray-200);
+  border-radius: var(--radius-sm); padding: 1rem 2rem;
+  text-align: center; cursor: pointer; width: 220px;
+  transition: all 0.2s; position: relative;
+}
+.hpt-box:hover, .hpt-box.active { transform: scale(1.04); border-color: var(--orange); background: var(--orange-light); }
+.hpt-box-title { font-size: 14px; font-weight: 700; color: var(--gray-800); }
+.hpt-box-sub { font-size: 12px; color: var(--gray-400); margin-top: 3px; }
+.hpt-arrow { display: flex; flex-direction: column; align-items: center; color: var(--orange); font-size: 22px; line-height: 1; padding: 4px 0; }
+.hpt-arrow-label { font-size: 11px; color: var(--orange-dark); font-weight: 600; background: var(--orange-light); border-radius: 99px; padding: 2px 10px; margin-top: 2px; }
+.hpt-info { margin-top: 1.25rem; min-height: 48px; background: var(--orange-light); border-radius: var(--radius-sm); padding: 0.85rem 1rem; font-size: 14px; color: var(--orange-dark); display: none; line-height: 1.6; }
+.hpt-info.show { display: block; }
+.feedback-arrow { font-size: 11px; color: var(--teal); background: var(--teal-light); border-radius: 99px; padding: 2px 10px; position: absolute; left: -100px; top: 50%; transform: translateY(-50%); white-space: nowrap; display: flex; align-items: center; gap: 4px; }
+
+/* ===== MECHANISM TABLE ===== */
+.mech-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+.mech-table th { background: var(--gray-800); color: white; padding: 0.75rem 1rem; font-size: 13px; font-weight: 600; text-align: right; }
+.mech-table th:first-child { border-radius: 0 var(--radius-sm) 0 0; }
+.mech-table th:last-child { border-radius: var(--radius-sm) 0 0 0; }
+.mech-table td { padding: 0.7rem 1rem; font-size: 14px; border-bottom: 1px solid var(--gray-200); vertical-align: top; line-height: 1.6; }
+.mech-table tr:last-child td { border-bottom: none; }
+.mech-table tr:hover td { background: var(--gray-50); }
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; }
+.badge-orange { background: var(--orange-light); color: var(--orange-dark); }
+.badge-teal { background: var(--teal-light); color: var(--teal); }
+.badge-blue { background: var(--blue-light); color: var(--blue); }
+.badge-red { background: var(--red-light); color: var(--red); }
+.badge-green { background: var(--green-light); color: var(--green); }
+
+/* ===== QUIZ ===== */
+.quiz-block { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 1.5rem; margin: 1.5rem 0; }
+.quiz-q { font-size: 16px; font-weight: 600; color: var(--gray-800); margin-bottom: 1rem; line-height: 1.5; }
+.quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt {
+  display: flex; align-items: center; gap: 12px;
+  padding: 0.85rem 1rem; border-radius: var(--radius-sm);
+  border: 1.5px solid var(--gray-200); cursor: pointer;
+  font-size: 14px; color: var(--gray-700); background: var(--white);
+  transition: all 0.15s;
+}
+.quiz-opt:hover:not(.locked) { border-color: var(--orange); background: var(--orange-light); }
+.quiz-opt.correct { border-color: var(--green); background: var(--green-light); color: var(--green); font-weight: 600; }
+.quiz-opt.wrong { border-color: var(--red); background: var(--red-light); color: var(--red); }
+.quiz-opt.locked { cursor: default; }
+.opt-badge { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--gray-200); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; color: var(--gray-400); }
+.quiz-opt.correct .opt-badge { border-color: var(--green); color: var(--green); background: rgba(30,132,73,0.1); }
+.quiz-opt.wrong .opt-badge { border-color: var(--red); color: var(--red); background: rgba(192,57,43,0.1); }
+.quiz-feedback { padding: 0.85rem 1rem; border-radius: var(--radius-sm); font-size: 14px; line-height: 1.6; margin-top: 1rem; display: none; }
+.quiz-feedback.show { display: block; }
+.fb-correct { background: var(--green-light); color: #145A32; border: 1px solid #A9DFBF; }
+.fb-wrong { background: var(--red-light); color: #78281F; border: 1px solid #F5B7B1; }
+
+/* ===== CASE VIGNETTE ===== */
+.case-block { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; margin: 1.5rem 0; }
+.case-header { background: var(--gray-800); color: white; padding: 1rem 1.5rem; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.case-step { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--gray-200); display: none; }
+.case-step:first-of-type { display: block; }
+.case-step-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--orange); margin-bottom: 0.5rem; }
+.case-text { font-size: 15px; line-height: 1.7; color: var(--gray-600); margin-bottom: 1rem; }
+.case-q { font-size: 15px; font-weight: 600; color: var(--gray-800); }
+.case-opts { display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; }
+.case-opt {
+  padding: 0.75rem 1rem; border-radius: var(--radius-sm);
+  border: 1.5px solid var(--gray-200); cursor: pointer;
+  font-size: 14px; color: var(--gray-700); background: var(--white);
+  transition: all 0.15s; text-align: right;
+}
+.case-opt:hover:not(.locked) { border-color: var(--orange); background: var(--orange-light); }
+.case-opt.correct { border-color: var(--green); background: var(--green-light); color: var(--green); font-weight: 600; }
+.case-opt.wrong { border-color: var(--red); background: var(--red-light); color: var(--red); }
+.case-opt.locked { cursor: default; }
+.case-reveal { padding: 0.85rem 1rem; background: var(--teal-light); border-radius: var(--radius-sm); font-size: 14px; color: var(--teal); margin-top: 0.75rem; display: none; line-height: 1.6; }
+.case-reveal.show { display: block; }
+.case-footer { padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; background: var(--gray-50); }
+
+/* ===== DIAGNOSIS TABLE (matching) ===== */
+.diag-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--gray-200); border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; margin: 1rem 0; }
+.diag-cell { background: var(--white); padding: 0.85rem 1rem; font-size: 14px; text-align: center; }
+.diag-header { background: var(--gray-800); color: white; font-size: 13px; font-weight: 700; }
+.diag-tshhigh { color: var(--red); font-weight: 700; }
+.diag-tshlow { color: var(--green); font-weight: 700; }
+.diag-ft4high { color: var(--orange-dark); font-weight: 700; }
+.diag-ft4low { color: var(--blue); font-weight: 700; }
+.diag-row:hover .diag-cell { background: var(--gray-50); }
+
+/* ===== TREATMENT CARDS ===== */
+.treatment-tabs { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
+.treatment-tab { padding: 0.5rem 1.25rem; border-radius: 99px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--gray-200); background: var(--white); color: var(--gray-600); transition: all 0.15s; }
+.treatment-tab.active { background: var(--orange); border-color: var(--orange); color: white; }
+.treatment-panel { display: none; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 1.5rem; }
+.treatment-panel.active { display: block; animation: slideIn 0.25s ease; }
+.treatment-panel h4 { font-size: 16px; font-weight: 700; color: var(--gray-800); margin-bottom: 0.75rem; }
+.treatment-panel p { font-size: 14px; color: var(--gray-600); line-height: 1.8; margin-bottom: 0.75rem; }
+.treatment-panel ul { list-style: none; }
+.treatment-panel li { font-size: 14px; color: var(--gray-600); padding: 0.4rem 0; border-bottom: 1px solid var(--gray-100); display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; }
+.treatment-panel li::before { content: '◆'; color: var(--orange); font-size: 8px; margin-top: 6px; flex-shrink: 0; }
+
+/* ===== FINAL QUIZ ===== */
+.final-quiz-wrap { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; }
+.final-quiz-header { background: var(--gray-800); color: white; padding: 1.25rem 2rem; }
+.final-quiz-header h2 { font-size: 20px; font-weight: 800; }
+.fq-question { padding: 1.5rem 2rem; border-bottom: 1px solid var(--gray-100); display: none; }
+.fq-question.active { display: block; }
+.fq-q-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--gray-400); text-transform: uppercase; margin-bottom: 0.5rem; }
+.fq-q-text { font-size: 16px; font-weight: 600; color: var(--gray-800); margin-bottom: 1rem; line-height: 1.5; }
+.fq-opts { display: flex; flex-direction: column; gap: 8px; }
+.fq-opt { padding: 0.75rem 1rem; border-radius: var(--radius-sm); border: 1.5px solid var(--gray-200); cursor: pointer; font-size: 14px; color: var(--gray-700); background: var(--white); transition: all 0.15s; }
+.fq-opt:hover:not(.locked) { border-color: var(--orange); background: var(--orange-light); }
+.fq-opt.correct { border-color: var(--green); background: var(--green-light); color: var(--green); font-weight: 600; }
+.fq-opt.wrong { border-color: var(--red); background: var(--red-light); color: var(--red); }
+.fq-opt.locked { cursor: default; }
+.fq-footer { padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; background: var(--gray-50); }
+.fq-counter { font-size: 13px; color: var(--gray-400); }
+.fq-result { padding: 2.5rem 2rem; text-align: center; display: none; }
+.fq-result.show { display: block; }
+.score-big { font-size: 64px; font-weight: 800; line-height: 1; }
+.score-label { font-size: 18px; font-weight: 600; color: var(--gray-600); margin: 0.5rem 0; }
+.score-sub { font-size: 14px; color: var(--gray-400); margin-bottom: 1.5rem; }
+.score-circle { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+/* ===== BUTTONS / NAV ===== */
+.btn { padding: 0.65rem 1.5rem; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: all 0.15s; font-family: 'Heebo', sans-serif; }
+.btn-orange { background: var(--orange); color: white; }
+.btn-orange:hover { background: var(--orange-dark); }
+.btn-outline { background: white; color: var(--gray-600); border: 1.5px solid var(--gray-200); }
+.btn-outline:hover { background: var(--gray-100); }
+.btn-teal { background: var(--teal); color: white; }
+.btn-teal:hover { background: #145A50; }
+.btn:disabled { opacity: 0.4; cursor: default; }
+.nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--gray-200); }
+
+/* ===== INTRO SLIDE ===== */
+.intro-modules { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 1.5rem 0; }
+.intro-module { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 1.25rem; display: flex; gap: 12px; align-items: flex-start; }
+.intro-module-icon { width: 36px; height: 36px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.intro-module-title { font-size: 14px; font-weight: 700; color: var(--gray-800); margin-bottom: 3px; }
+.intro-module-time { font-size: 12px; color: var(--gray-400); }
+.intro-module-desc { font-size: 13px; color: var(--gray-600); margin-top: 4px; line-height: 1.5; }
+.objectives-list { list-style: none; margin: 1rem 0; }
+.objectives-list li { padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100); font-size: 14px; color: var(--gray-600); display: flex; align-items: flex-start; gap: 10px; line-height: 1.6; }
+.objectives-list li::before { content: '✓'; color: var(--orange); font-weight: 800; font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+/* ===== DRAG AND DROP ===== */
+.dnd-wrap { margin: 1rem 0; }
+.dnd-categories { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1rem; }
+.dnd-category { border: 2px dashed var(--gray-200); border-radius: var(--radius); padding: 1rem; min-height: 160px; background: var(--white); transition: border-color 0.2s, background 0.2s; }
+.dnd-category.drag-over { border-color: var(--orange); background: var(--orange-light); }
+.dnd-category-title { font-size: 13px; font-weight: 700; text-align: center; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--gray-200); }
+.dnd-items { display: flex; flex-wrap: wrap; gap: 6px; }
+.dnd-item { background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 6px 12px; font-size: 13px; cursor: grab; user-select: none; transition: all 0.15s; }
+.dnd-item:hover { background: var(--orange-light); border-color: var(--orange-mid); }
+.dnd-item.dragging { opacity: 0.4; cursor: grabbing; }
+.dnd-source { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; padding: 1rem; background: var(--gray-50); border-radius: var(--radius); border: 1px solid var(--gray-200); min-height: 60px; }
+.dnd-result { padding: 0.85rem 1rem; border-radius: var(--radius-sm); font-size: 14px; margin-top: 0.75rem; display: none; }
+.dnd-result.show { display: block; }
+.dnd-correct-cat { border-color: var(--green) !important; background: var(--green-light) !important; }
+.dnd-correct-cat .dnd-category-title { color: var(--green); }
+
+/* ===== TIMELINE ===== */
+.timeline { position: relative; margin: 1rem 0; }
+.timeline::before { content: ''; position: absolute; right: 20px; top: 0; bottom: 0; width: 2px; background: var(--gray-200); }
+.tl-item { display: flex; gap: 1rem; margin-bottom: 1.25rem; padding-right: 52px; position: relative; }
+.tl-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--orange); border: 3px solid white; box-shadow: 0 0 0 2px var(--orange); position: absolute; right: 12px; top: 4px; }
+.tl-content { flex: 1; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 0.85rem 1rem; }
+.tl-title { font-size: 14px; font-weight: 700; color: var(--gray-800); margin-bottom: 4px; }
+.tl-desc { font-size: 13px; color: var(--gray-600); line-height: 1.6; }
+.tl-pct { font-size: 11px; font-weight: 700; color: var(--orange); }
+
+/* ===== CLINICAL FEATURES ===== */
+.clinical-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 1rem 0; }
+.clinical-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 1.25rem; }
+.clinical-card-title { font-size: 14px; font-weight: 700; color: var(--gray-800); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 6px; }
+.clinical-card ul { list-style: none; }
+.clinical-card li { font-size: 13px; color: var(--gray-600); padding: 0.35rem 0; border-bottom: 1px solid var(--gray-100); display: flex; align-items: flex-start; gap: 6px; line-height: 1.5; }
+.clinical-card li::before { content: '—'; color: var(--gray-400); flex-shrink: 0; }
+
+/* ===== IMAGING SECTION ===== */
+.imaging-tabs { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
+.imaging-tab { padding: 0.45rem 1.1rem; border-radius: 99px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--gray-200); background: var(--white); color: var(--gray-600); transition: all 0.15s; }
+.imaging-tab.active { background: var(--teal); border-color: var(--teal); color: white; }
+.imaging-panel { display: none; }
+.imaging-panel.active { display: block; animation: slideIn 0.25s ease; }
+.imaging-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+.imaging-text { font-size: 14px; color: var(--gray-600); line-height: 1.8; }
+.imaging-text h4 { font-size: 15px; font-weight: 700; color: var(--gray-800); margin-bottom: 0.5rem; }
+.imaging-text ul { list-style: none; margin-top: 0.5rem; }
+.imaging-text li { padding: 0.3rem 0; border-bottom: 1px solid var(--gray-100); display: flex; gap: 8px; line-height: 1.5; }
+.imaging-text li::before { content: '◆'; color: var(--teal); font-size: 8px; margin-top: 5px; flex-shrink: 0; }
+.imaging-img-placeholder { background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 1rem; text-align: center; }
+.imaging-icon { font-size: 48px; margin-bottom: 0.5rem; }
+.imaging-caption { font-size: 12px; color: var(--gray-400); }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 99px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-brand">
+    <img class="topbar-logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iI0U4NjgxQSIvPjx0ZXh0IHg9IjUwIiB5PSI2MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIGZvbnQtc2l6ZT0iMzAiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LWZhbWlseT0iQXJpYWwiPteR16AmcXVvdDvXkjwvdGV4dD48L3N2Zz4=" alt="BGU Logo">
+    <div>
+      <div class="topbar-title">מחלות בלוטת התריס</div>
+      <div class="topbar-sub">אוניברסיטת בן-גוריון בנגב | אנדוקרינולוגיה</div>
+    </div>
+  </div>
+  <div class="topbar-progress-wrap">
+    <div class="topbar-progress-bar"><div class="topbar-progress-fill" id="topProgress"></div></div>
+    <div class="topbar-pct" id="topPct">0%</div>
+  </div>
+  <div class="topbar-time">⏱ ~25 דקות</div>
+</div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">מבנה הלומדה</div>
+    <div class="sidebar-item active" id="nav-0" onclick="goTo(0)">
+      <div class="si-dot"></div><span>מבוא ומטרות</span><span class="si-num">~3 דק'</span>
+    </div>
+    <div class="sidebar-item" id="nav-1" onclick="goTo(1)">
+      <div class="si-dot"></div><span>ציר HPT</span><span class="si-num">~3 דק'</span>
+    </div>
+    <div class="sidebar-item" id="nav-2" onclick="goTo(2)">
+      <div class="si-dot"></div><span>תירוטוקסיקוזיס — מבוא</span><span class="si-num">~2 דק'</span>
+    </div>
+    <div class="sidebar-item" id="nav-3" onclick="goTo(3)">
+      <div class="si-dot"></div><span>סיבות ומנגנונים</span><span class="si-num">~3 דק'</span>
+    </div>
+    <div class="sidebar-item" id="nav-4" onclick="goTo(4)">
+      <div class="si-dot"></div><span>Graves Disease</span><span class="si-num">~3 דק'</span>
+    </div>
+    <div class="sidebar-item" id="nav-5" onclick="goTo(5)">
+      <div class="si-dot"></div><span>ביטוי קליני</span><span class="si-num">~2 דק'</span>
+    </div>
+    <div class="sidebar-item" id="nav-6" onclick="goTo(6)">
+      <div class="si-dot"></div><span>הדמיה ואבחנה</span><span class="si-num">~3 דק'</span>
+    </div>
+    <div class="sidebar-item" id="nav-7" onclick="goTo(7)">
+      <div class="si-dot"></div><span>טיפול ביתר פעילות</span><span class="si-num">~3 דק'</span>
+    </div>
+    <div class="sidebar-item" id="nav-8" onclick="goTo(8)">
+      <div class="si-dot"></div><span>תת-פעילות / Hashimoto</span><span class="si-num">~3 דק'</span>
+    </div>
+    <div class="sidebar-item" id="nav-9" onclick="goTo(9)">
+      <div class="si-dot"></div><span>מקרה קליני מתגלגל</span><span class="si-num">~3 דק'</span>
+    </div>
+    <div class="sidebar-item" id="nav-10" onclick="goTo(10)">
+      <div class="si-dot"></div><span>🏆 בוחן סיכום</span><span class="si-num">~3 דק'</span>
+    </div>
+    <div class="sidebar-item" id="nav-11" onclick="goTo(11)">
+      <div class="si-dot"></div><span>📝 משוב</span><span class="si-num">~2 דק'</span>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main-content">
+
+<!-- ===== SLIDE 0: INTRO ===== -->
+<div class="slide active" id="slide-0">
+  <div class="section-header">
+    <div class="section-badge">🎓 אוניברסיטת בן-גוריון בנגב</div>
+    <div class="section-title">מחלות בלוטת התריס</div>
+    <div class="section-desc">לומדה אינטרקטיבית | אנדוקרינולוגיה | משך: ~25 דקות</div>
+  </div>
+
+  <div class="content-block">
+    <div class="block-title">על הלומדה</div>
+    <div class="text-block">
+      בלוטת התריס משפיעה כמעט על כל מערכת בגוף — הלב, מערכת העצבים, המטבוליזם, העור והעצמות. הפרעה בתפקודה יכולה להתבטא במגוון רחב של סימפטומים, לעיתים לא ספציפיים, ולעיתים מסכני חיים.
+      <br><br>
+      בלומדה זו נעסוק בשני מצבים מרכזיים: <strong>תירוטוקסיקוזיס</strong> ו<strong>תת-פעילות של בלוטת התריס</strong>, תוך התמקדות בסיבות השכיחות, בביטוי הקליני, בהדמיה, ובחיבור בין המנגנון הפתופיזיולוגי לתמונה הקלינית — כולל עדכון על <strong>אבחנה וטיפול</strong>.
+    </div>
+  </div>
+
+  <div class="content-block">
+    <div class="block-title">מבנה הלומדה</div>
+    <div class="intro-modules">
+      <div class="intro-module">
+        <div class="intro-module-icon" style="background:#FDF0E8">🧬</div>
+        <div>
+          <div class="intro-module-title">ציר HPT</div>
+          <div class="intro-module-time">~3 דקות</div>
+          <div class="intro-module-desc">ויסות הורמוני התריס ומשוב שלילי</div>
+        </div>
+      </div>
+      <div class="intro-module">
+        <div class="intro-module-icon" style="background:#FDEDEB">🔴</div>
+        <div>
+          <div class="intro-module-title">תירוטוקסיקוזיס</div>
+          <div class="intro-module-time">~11 דקות</div>
+          <div class="intro-module-desc">מנגנונים, Graves, ביטוי קליני, הדמיה וטיפול</div>
+        </div>
+      </div>
+      <div class="intro-module">
+        <div class="intro-module-icon" style="background:#EBF3FC">🔵</div>
+        <div>
+          <div class="intro-module-title">תת-פעילות</div>
+          <div class="intro-module-time">~5 דקות</div>
+          <div class="intro-module-desc">Hashimoto, פתופיזיולוגיה וביטוי קליני</div>
+        </div>
+      </div>
+      <div class="intro-module">
+        <div class="intro-module-icon" style="background:#E9F7EF">🏆</div>
+        <div>
+          <div class="intro-module-title">בוחן סיכום</div>
+          <div class="intro-module-time">~3 דקות</div>
+          <div class="intro-module-desc">10 שאלות עם ציון במבוא</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-block">
+    <div class="block-title">מטרות למידה</div>
+    <ul class="objectives-list">
+      <li>להסביר את מנגנון ציר ה-HPT ומשמעותו הקלינית</li>
+      <li>להבדיל בין תירוטוקסיקוזיס ליתר-פעילות בלוטת התריס</li>
+      <li>לאבחן מחלת Graves קלינית ומעבדתית, כולל ביטוי עיני</li>
+      <li>להכיר את בדיקות הדימות (Imaging): סונאר, מיפוי ו-uptake</li>
+      <li>לסקור את אפשרויות הטיפול ביתר פעילות (תרופות, יוד רדיואקטיבי, ניתוח)</li>
+      <li>לאבחן ולטפל בתת-פעילות ובמחלת Hashimoto</li>
+    </ul>
+  </div>
+
+
+
+  <!-- Quiz -->
+  <div class="quiz-block">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:8px;">📋 בוחן ידע מקדים (Pre-test) — בואו נבדוק מה אתם זוכרים</div>
+    <div class="quiz-q">❓ אישה בת 32 מגיעה עם ירידה של 5 ק"ג במשקל תוך חודש, דפיקות לב מהירות ואי שקט. בבדיקה: דופק 108, רעד עדין בידיים. מהי בדיקת הסקר הראשונה שתבצעו?</div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q0')"><div class="opt-badge">א</div>אקו לב (Echocardiography) לשלילת הפרעה מבנית</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q0')"><div class="opt-badge">ב</div>קורטיזול בדם לשלילת פיאוכרומוציטומה (Pheochromocytoma)</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,true,'q0')"><div class="opt-badge">ג</div>TSH (Thyroid-Stimulating Hormone) — הורמון מגרה תריס</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q0')"><div class="opt-badge">ד</div>ספירת דם (CBC — Complete Blood Count) לשלילת אנמיה</div>
+    </div>
+    <div class="quiz-feedback fb-correct" id="fb-q0-c">✅ <strong>נכון!</strong> הצירוף של ירידה במשקל עם תיאבון שמור, טכיקרדיה ורעד — תמונה קלאסית של תירוטוקסיקוזיס (Thyrotoxicosis). TSH הוא בדיקת הסקר הרגישה ביותר לתפקוד בלוטת התריס. TSH מדוכא יוביל לבדיקת FT4 (Free T4 — תירוקסין חופשי) ו-T3 להשלמת האבחנה.</div>
+    <div class="quiz-feedback fb-wrong" id="fb-q0-w">❌ הצירוף הקליני מחשיד מאוד לתירוטוקסיקוזיס (Thyrotoxicosis — חשיפה עודפת להורמוני תריס). TSH (Thyroid-Stimulating Hormone) הוא בדיקת הסקר הראשונה — רגיש, זול וזמין. פיאוכרומוציטומה נשלל עם קטכולאמינים בשתן, לא קורטיזול.</div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-outline" disabled>◄ הקודם</button>
+    <button class="btn btn-orange" onclick="goTo(1)">הבא: ציר HPT ►</button>
+  </div>
+</div>
+
+<!-- ===== SLIDE 1: HPT AXIS ===== -->
+<div class="slide" id="slide-1">
+  <div class="section-header">
+    <div class="section-badge">🧬 ציר היפותלמוס-היפופיזה-תירואיד</div>
+    <div class="section-title">HPT Axis — ויסות הורמוני התריס</div>
+    <div class="section-desc">הבנת ציר הבקרה היא המפתח להבנת כל ההפרעות הקליניות</div>
+  </div>
+
+  <div class="content-block">
+    <div class="block-title">כיצד מווסתת בלוטת התריס?</div>
+    <div class="text-block">
+      ויסות פעילות בלוטת התריס נעשה באמצעות ציר שלושה שלבים. <strong>לחצו על כל תיבה</strong> בציר לקבלת מידע מפורט:
+    </div>
+  </div>
+
+  <div class="hpt-diagram">
+    <div class="hpt-boxes">
+      <div class="hpt-box" id="hpt-1" onclick="showHPT(1)">
+        <div class="hpt-box-title">🧠 היפותלמוס</div>
+        <div class="hpt-box-sub">מפריש TRH</div>
+      </div>
+      <div class="hpt-arrow">↓<div class="hpt-arrow-label">TRH</div></div>
+      <div class="hpt-box" id="hpt-2" onclick="showHPT(2)" style="position:relative;">
+        <div class="hpt-box-title">🫠 היפופיזה הקדמית</div>
+        <div class="hpt-box-sub">מפרישה TSH</div>
+        <div class="feedback-arrow" id="fb-arrow">◄ משוב שלילי מ-T3/T4</div>
+      </div>
+      <div class="hpt-arrow">↓<div class="hpt-arrow-label">TSH</div></div>
+      <div class="hpt-box" id="hpt-3" onclick="showHPT(3)">
+        <div class="hpt-box-title">🦋 בלוטת התריס</div>
+        <div class="hpt-box-sub">מפרישה T4 + T3</div>
+      </div>
+    </div>
+    <div class="hpt-info" id="hpt-info-1">
+      <strong>היפותלמוס:</strong> מפריש TRH (Thyrotropin-Releasing Hormone) בתגובה לגירויים כגון קור, סטרס, ורמות נמוכות של הורמוני תריס. TRH גורם להיפופיזה להפריש TSH.
+    </div>
+    <div class="hpt-info" id="hpt-info-2">
+      <strong>היפופיזה הקדמית:</strong> מפרישה TSH (Thyroid-Stimulating Hormone) בתגובה ל-TRH. TSH גורם לבלוטת התריס לגדול ולייצר הורמונים. כאשר T3/T4 גבוהים — הם מדכאים את הפרשת TSH (משוב שלילי).
+    </div>
+    <div class="hpt-info" id="hpt-info-3">
+      <strong>בלוטת התריס:</strong> מייצרת בעיקר T4 (80%) ו-T3 (20%). T4 מומר ל-T3 הפעיל ברקמות. T3 הוא ההורמון הפעיל ביולוגית ואחראי לרוב ההשפעות על הגוף.
+    </div>
+  </div>
+
+  <div class="highlight highlight-teal">
+    <strong>⚠️ כלל זהב:</strong> ברוב ההפרעות הראשוניות של בלוטת התריס — ה-TSH הוא הסמן הרגיש ביותר. תת-פעילות ראשונית ← TSH גבוה. יתר-פעילות ראשונית ← TSH מדוכא.
+  </div>
+
+
+
+<div onclick="window.open('https://www.youtube.com/watch?v=AQHYiZ0kMlI','_blank')" style="background:var(--white);border:1.5px solid #FF0000;border-radius:var(--radius);overflow:hidden;cursor:pointer;display:flex;align-items:stretch;margin:1.25rem 0;transition:box-shadow 0.2s,transform 0.15s;" onmouseover="this.style.boxShadow='0 4px 16px rgba(255,0,0,0.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='none';this.style.transform='none'"><div style="background:#FF0000;min-width:88px;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:1.25rem;"><svg width="36" height="26" viewBox="0 0 36 26" fill="none"><rect width="36" height="26" rx="5" fill="rgba(255,255,255,0.15)"/><polygon points="13,7 27,13 13,19" fill="white"/></svg><div style="color:white;font-size:10px;margin-top:6px;font-weight:700;letter-spacing:0.5px;">YouTube</div></div><div style="padding:1rem 1.5rem;flex:1;display:flex;flex-direction:column;justify-content:center;"><div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF0000;margin-bottom:4px;">סרטון וידאו להעשרה</div><div style="font-size:15px;font-weight:700;color:var(--gray-800);margin-bottom:3px;">Thyroid Hormone Axis & Regulation</div><div style="font-size:12px;color:var(--gray-400);margin-bottom:10px;">Ninja Nerd Science · 9 דקות</div><div style="display:inline-flex;align-items:center;gap:6px;background:#FF0000;color:white;border-radius:6px;padding:5px 14px;font-size:13px;font-weight:600;width:fit-content;">▶ לחץ לצפייה</div></div></div>
+  <div class="quiz-block">
+    <div class="quiz-q">❓ מטופל עם סרקואידוזיס מוכרת מגיע עם TSH (Thyroid-Stimulating Hormone — הורמון מגרה תריס)=8, FT4 (Free T4 — תירוקסין חופשי) תקין. לאחר מכן: TSH=12, FT4 נמוך. מהי האבחנה הסבירה ביותר, ומה יבדיל אותה מהיפותירואידיזם ראשוני קלאסי?</div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q1')"><div class="opt-badge">א</div>היפותירואידיזם משני — TSH יהיה נמוך עם FT4 נמוך</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,true,'q1')"><div class="opt-badge">ב</div>היפותירואידיזם ראשוני — הסרקואידוזיס עלולה לערב את הבלוטה; פרופיל הורמונלי זהה ל-Hashimoto</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q1')"><div class="opt-badge">ג</div>Sick euthyroid syndrome — TSH יכול לעלות בשלב ה-recovery</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q1')"><div class="opt-badge">ד</div>היפותירואידיזם שלישוני — TRH נמוך עם TSH תקין נמוך ו-FT4 נמוך</div>
+    </div>
+    <div class="quiz-feedback fb-correct" id="fb-q1-c">✅ <strong>נכון!</strong> פרופיל של TSH↑ + FT4↓ = היפותירואידיזם ראשוני. סרקואידוזיס יכולה לחדור לבלוטת התריס (granulomatous thyroiditis) — נדיר, אך מוכר. בהיפותירואידיזם משני (היפופיזה) TSH יהיה <strong>נמוך/תקין</strong> עם FT4 נמוך — פרופיל הפוך! Sick euthyroid: TSH בד"כ נמוך בשלב חריף, יכול לעלות ב-recovery אך FT4 לרוב תקין.</div>
+    <div class="quiz-feedback fb-wrong" id="fb-q1-w">❌ TSH↑ + FT4↓ = היפותירואידיזם ראשוני בכל סיבה שהיא. היפותירואידיזם משני: TSH נמוך/תקין + FT4 נמוך. Sick euthyroid: TSH לרוב נמוך בחריף, FT4 משתנה — אך זה מטופל מחוץ לאשפוז עם מחלה כרונית, לא Sick euthyroid.</div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-outline" onclick="goTo(0)">◄ הקודם</button>
+    <button class="btn btn-orange" onclick="goTo(2)">הבא: תירוטוקסיקוזיס ►</button>
+  </div>
+</div>
+
+<!-- ===== SLIDE 2: THYROTOXICOSIS INTRO ===== -->
+<div class="slide" id="slide-2">
+  <div class="section-header">
+    <div class="section-badge">🔴 חלק א — תירוטוקסיקוזיס</div>
+    <div class="section-title">הגדרות בסיסיות</div>
+    <div class="section-desc">הבנת ההבדל בין תירוטוקסיקוזיס ליתר-פעילות היא נקודת המוצא לאבחנה נכונה</div>
+  </div>
+
+  <div class="content-block">
+    <div class="block-title">הגדרות — לחצו להרחבה</div>
+    <div class="accordion">
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span>🔴 תירוטוקסיקוזיס — הגדרה</span><span class="acc-arrow">▾</span>
+        </div>
+        <div class="acc-body">מצב שבו קיימת <strong>חשיפה עודפת</strong> של הרקמות להורמוני תריס — מכל סיבה שהיא. כולל גם מצבים שבהם הבלוטה לא מייצרת יותר, אלא משחררת הורמונים שנאגרו בה.</div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span>🟠 יתר-פעילות בלוטת התריס (Hyperthyroidism) — הגדרה</span><span class="acc-arrow">▾</span>
+        </div>
+        <div class="acc-body">תת-סוג של תירוטוקסיקוזיס שבו הבלוטה <strong>מייצרת</strong> הורמונים בכמות מוגברת. כל יתר-פעילות היא תירוטוקסיקוזיס, אבל לא כל תירוטוקסיקוזיס היא יתר-פעילות. מנגנון חשוב להבדיל!</div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span>💡 מדוע ההבחנה חשובה קלינית?</span><span class="acc-arrow">▾</span>
+        </div>
+        <div class="acc-body">בהרס בלוטה (כגון תירואידיטיס), ייצור ההורמונים בפועל נמוך — לכן <strong>יוד רדיואקטיבי (RAI) אינו מועיל</strong>. הטיפול שונה לחלוטין! מיפוי תירואיד (uptake scan) יבדיל בין השניים — uptake גבוה = ייצור מוגבר; נמוך = הרס.</div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span>📊 T3 Toxicosis — מה זה?</span><span class="acc-arrow">▾</span>
+        </div>
+        <div class="acc-body">ב-2–5% ממקרי Graves — רק T3 מוגבר ואילו T4 תקין. TSH מדוכא. חשוב לדעת כי בחשד קליני ל-Graves עם T4 תקין — יש לבדוק גם T3!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <strong>דוגמה:</strong> Subacute thyroiditis גורמת לתירוטוקסיקוזיס <em>ללא</em> יתר-פעילות. הבלוטה ניזוקה ומשחררת הורמונים שנאגרו — אך אינה מייצרת יותר. ה-uptake יהיה נמוך.
+  </div>
+
+  <div class="quiz-block">
+    <div class="quiz-q">❓ חולה עם תירוטוקסיקוזיס עבר RAI (Radioactive Iodine — יוד רדיואקטיבי) ולא השתפר. בסקינטיגרפיה: uptake אפסי. מה הסיבה הסבירה ביותר לכשל הטיפולי?</div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q2')"><div class="opt-badge">א</div>מינון RAI נמוך מדי — יש לחזור על הטיפול</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q2')"><div class="opt-badge">ב</div>נוכחות נוגדני TRAb מנעה ספיגת הI-131</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,true,'q2')"><div class="opt-badge">ג</div>האבחנה המקורית הייתה שגויה — מדובר בתירואידיטיס, לא יתר-פעילות</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q2')"><div class="opt-badge">ד</div>Amiodarone שנלקח לפני הטיפול חסם ספיגת היוד</div>
+    </div>
+    <div class="quiz-feedback fb-correct" id="fb-q2-c">✅ <strong>נכון!</strong> Uptake אפסי = הבלוטה אינה קולטת יוד. RAI <strong>יעיל רק כשה-uptake גבוה</strong> (ייצור מוגבר — Graves, Toxic MNG). תירואידיטיס (Subacute, Silent, Post-partum) גורמת לתירוטוקסיקוזיס מהשחרור הורמונים שנאגרו — uptake נמוך/אפסי ← RAI לא נקלט ולא עובד. גם Amiodarone יכול להוריד uptake, אך התשובה הקלינית הנכונה היא שינוי אבחנה.</div>
+    <div class="quiz-feedback fb-wrong" id="fb-q2-w">❌ Uptake אפסי אומר שה-I-131 כלל לא נקלט בבלוטה — לכן RAI לא יועיל בשום מינון. זה מצביע על תירואידיטיס (הרס בלוטה) ולא על יתר-פעילות אמיתית. TRAb אינם חוסמים ספיגת RAI.</div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-outline" onclick="goTo(1)">◄ הקודם</button>
+    <button class="btn btn-orange" onclick="goTo(3)">הבא: סיבות ומנגנונים ►</button>
+  </div>
+</div>
+
+<!-- ===== SLIDE 3: CAUSES ===== -->
+<div class="slide" id="slide-3">
+  <div class="section-header">
+    <div class="section-badge">📋 סיבות שכיחות</div>
+    <div class="section-title">סיבות לתירוטוקסיקוזיס — לפי מנגנון</div>
+    <div class="section-desc">הבחנה לפי uptake מאפשרת אבחנה מבדלת מהירה</div>
+  </div>
+
+  <div class="content-block">
+    <div class="block-title">טבלת מנגנונים</div>
+    <table class="mech-table">
+      <thead>
+        <tr>
+          <th>מנגנון</th>
+          <th>מחלה</th>
+          <th>Uptake</th>
+          <th>הערות</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-orange">⬆️ ייצור מוגבר</span></td>
+          <td><strong>Graves disease</strong></td>
+          <td><span class="badge badge-red">גבוה + מפוזר</span></td>
+          <td>הסיבה השכיחה ביותר; TRAb+</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-orange">⬆️ ייצור מוגבר</span></td>
+          <td>Toxic multinodular goiter</td>
+          <td><span class="badge badge-red">גבוה + מוקדי</span></td>
+          <td>שכיח בגיל מבוגר</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-orange">⬆️ ייצור מוגבר</span></td>
+          <td>Toxic adenoma</td>
+          <td><span class="badge badge-red">מוקד חם יחיד</span></td>
+          <td>גושן בודד אוטונומי</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-teal">💥 הרס בלוטה</span></td>
+          <td>Subacute thyroiditis</td>
+          <td><span class="badge badge-green">נמוך/אפסי</span></td>
+          <td>כאב, חום, VSR מוגבר</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-teal">💥 הרס בלוטה</span></td>
+          <td>Silent / Postpartum thyroiditis</td>
+          <td><span class="badge badge-green">נמוך</span></td>
+          <td>ללא כאב; לאחר לידה</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-blue">💊 תרופות/יוד</span></td>
+          <td>Amiodarone</td>
+          <td><span class="badge badge-blue">משתנה</span></td>
+          <td>Type I (גירוי) / Type II (הרס)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="highlight">
+    <strong>כלל מעשי:</strong> <em>Radioactive iodine uptake scan</em> — אם גבוה: מחלה ייצורית (Graves, TMG). אם נמוך: הרס בלוטה (thyroiditis) או מקור חיצוני לאורמוני תריס.
+  </div>
+
+  <div class="quiz-block">
+    <div class="quiz-q">❓ אישה בת 45 עם Graves מטופלת ב-Methimazole 20mg/d. לאחר 8 שבועות: TSH (Thyroid-Stimulating Hormone — הורמון מגרה תריס) עדיין מדוכא, FT4 (Free T4 — תירוקסין חופשי) תקין. מה ההמשך הנכון?</div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q3')"><div class="opt-badge">א</div>להחליף ל-PTU כי Methimazole לא עובד</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,true,'q3')"><div class="opt-badge">ב</div>להתבסס על FT4 לאיזון — TSH יישאר מדוכא חודשים ואינו מדד אמין בשלב זה</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q3')"><div class="opt-badge">ג</div>להגדיל מינון Methimazole כי TSH מדוכא מעיד על אי-שליטה</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q3')"><div class="opt-badge">ד</div>לבצע RAI כי ATD נכשל</div>
+    </div>
+    <div class="quiz-feedback fb-correct" id="fb-q3-c">✅ <strong>נכון!</strong> TSH <strong>נשאר מדוכא חודשים</strong> גם לאחר איזון תירוטוקסיקוזיס — ה-pituitary thyrotrophs עדיין "מדוכאים" וזקוקים לזמן להחלמה. לכן בשלב הראשון יש להסתמך על FT4 לאיזון המינון, לא על TSH! TSH יכול לשמש כמדד מעקב רק לאחר שהתנרמל.</div>
+    <div class="quiz-feedback fb-wrong" id="fb-q3-w">❌ TSH מדוכא אחרי 8 שבועות של ATD הוא <strong>תקין ומצופה</strong> — ה-pituitary thyrotrophs מחלימים לאט. FT4 תקין = איזון טוב. אין סיבה להחליף תרופה או להגדיל מינון.</div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-outline" onclick="goTo(2)">◄ הקודם</button>
+    <button class="btn btn-orange" onclick="goTo(4)">הבא: Graves Disease ►</button>
+  </div>
+</div>
+
+<!-- ===== SLIDE 4: GRAVES ===== -->
+<div class="slide" id="slide-4">
+  <div class="section-header">
+    <div class="section-badge">🔬 פתופיזיולוגיה</div>
+    <div class="section-title">Graves Disease</div>
+    <div class="section-desc">המחלה האוטואימונית השכיחה ביותר של בלוטת התריס</div>
+  </div>
+
+  <div class="content-block">
+    <div class="block-title">מנגנון המחלה</div>
+    <div class="text-block">
+      Graves היא מחלה אוטואימונית שבה נוצרים נוגדנים מסוג <strong>TRAb (TSH receptor antibodies)</strong> כנגד הקולטן ל-TSH. נוגדנים אלו <em>מגרים</em> את הקולטן — גורמים לייצור מתמשך של הורמוני תריס, ללא תלות ב-TSH האמיתי.
+      <br><br>
+      המחלה שכיחה יותר בנשים (10:1), בגיל 20–50. גורמים מחמירים: <strong>עישון</strong> (מחמיר במיוחד את הביטוי העיני), סטרס, לאחר לידה, מחלות ויראליות.
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="stat-card">
+      <div class="stat-icon">👩</div>
+      <div class="stat-label">שכיחות בנשים</div>
+      <div class="stat-value">~2%</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🎂</div>
+      <div class="stat-label">גיל שיא</div>
+      <div class="stat-value">20–50</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">👁️</div>
+      <div class="stat-label">ביטוי עיני</div>
+      <div class="stat-value">25–50%</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🧬</div>
+      <div class="stat-label">נוגדן אבחנתי</div>
+      <div class="stat-value">TRAb</div>
+    </div>
+  </div>
+
+  <div class="content-block">
+    <div class="block-title">הסתמנות קלינית של Graves — "המשולש הקלאסי"</div>
+    <div class="accordion">
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span>🦋 1. זפק דיפוזי (Goiter)</span><span class="acc-arrow">▾</span>
+        </div>
+        <div class="acc-body">בלוטה מוגדלת, רכה, בד"כ סימטרית. לעיתים נשמע <strong>bruit</strong> (רחש כלי-דמי) על הבלוטה בשל זרימת דם מוגברת. הגדלה נובעת מגירוי מתמשך ע"י TRAb.</div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span>👁️ 2. Graves Ophthalmopathy (TAO)</span><span class="acc-arrow">▾</span>
+        </div>
+        <div class="acc-body">ייחודי ל-Graves (לא מופיע בשאר סיבות יתר הפעילות). נגרם מדלקת אוטואימונית של השרירים והרקמה הרטרואורביטלית. ביטויים: <strong>proptosis (exophthalmos)</strong>, chemosis, diplopia, כאב עיניים. עישון מחמיר משמעותית. מוערך לפי סולם CAS (Clinical Activity Score).</div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span>🦵 3. Pretibial myxedema (Dermopathy)</span><span class="acc-arrow">▾</span>
+        </div>
+        <div class="acc-body">נדיר (1–5%). התעבות עור בצד הקדמי של הרגל התחתונה — כתוצאה מהצטברות גליקוזאמינוגליקנים. מראה "לשון תנין". אינו בא בכלל מיקסדמה הרגילה.</div>
+      </div>
+    </div>
+  </div>
+
+
+
+<div onclick="window.open('https://www.youtube.com/watch?v=KzM8BiSnKQM','_blank')" style="background:var(--white);border:1.5px solid #FF0000;border-radius:var(--radius);overflow:hidden;cursor:pointer;display:flex;align-items:stretch;margin:1.25rem 0;transition:box-shadow 0.2s,transform 0.15s;" onmouseover="this.style.boxShadow='0 4px 16px rgba(255,0,0,0.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='none';this.style.transform='none'"><div style="background:#FF0000;min-width:88px;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:1.25rem;"><svg width="36" height="26" viewBox="0 0 36 26" fill="none"><rect width="36" height="26" rx="5" fill="rgba(255,255,255,0.15)"/><polygon points="13,7 27,13 13,19" fill="white"/></svg><div style="color:white;font-size:10px;margin-top:6px;font-weight:700;letter-spacing:0.5px;">YouTube</div></div><div style="padding:1rem 1.5rem;flex:1;display:flex;flex-direction:column;justify-content:center;"><div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF0000;margin-bottom:4px;">סרטון וידאו להעשרה</div><div style="font-size:15px;font-weight:700;color:var(--gray-800);margin-bottom:3px;">Graves' Disease — Pathophysiology & Treatment</div><div style="font-size:12px;color:var(--gray-400);margin-bottom:10px;">Armando Hasudungan · 9 דקות</div><div style="display:inline-flex;align-items:center;gap:6px;background:#FF0000;color:white;border-radius:6px;padding:5px 14px;font-size:13px;font-weight:600;width:fit-content;">▶ לחץ לצפייה</div></div></div>
+  <div class="quiz-block">
+    <div class="quiz-q">❓ אישה בת 28 עם Graves מאוזן ב-ATD (Anti-Thyroid Drugs — תרופות אנטי-תירואידיות) מבקשת להרות. TRAb (TSH Receptor Antibodies — נוגדני קולטן TSH) גבוהים פי 4 מנורמה. מה המשמעות הקלינית העיקרית לגבי הנוזל?</div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q4')"><div class="opt-badge">א</div>אין משמעות לרמת TRAb בהריון — הנוגדנים אינם חוצים שליה</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q4')"><div class="opt-badge">ב</div>סיכון לנוזל היפותירואיד — TRAb גבוה מעכב תפקוד בלוטת הנוזל</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,true,'q4')"><div class="opt-badge">ג</div>סיכון ל-Neonatal thyrotoxicosis — TRAb חוצה שליה ומגרה בלוטת הנוזל</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q4')"><div class="opt-badge">ד</div>יש להחליף ל-RAI לפני הריון כדי להוריד TRAb</div>
+    </div>
+    <div class="quiz-feedback fb-correct" id="fb-q4-c">✅ <strong>נכון!</strong> TRAb (IgG) חוצה שליה ועלול לגרום ל-<strong>Neonatal thyrotoxicosis</strong> — IUGR, טכיקרדיה עוברית &gt;160, זפק עוברי, התבגרות עצמות מוקדמת. TRAb &gt;3x נורמה = סמן לסיכון גבוה ← ניטור אולטרסאונד עוברי + מוכנות לטיפול ביילוד ב-ATD למשך 1–3 חודשים. RAI אסור בהריון.</div>
+    <div class="quiz-feedback fb-wrong" id="fb-q4-w">❌ TRAb (IgG class) חוצה שליה בצורה יעילה. TRAb גבוה = סיכון ל-Neonatal thyrotoxicosis, לא היפותירואידיזם. RAI בהריון — אסור לחלוטין.</div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-outline" onclick="goTo(3)">◄ הקודם</button>
+    <button class="btn btn-orange" onclick="goTo(5)">הבא: ביטוי קליני ►</button>
+  </div>
+</div>
+
+<!-- ===== SLIDE 5: CLINICAL FEATURES ===== -->
+<div class="slide" id="slide-5">
+  <div class="section-header">
+    <div class="section-badge">🩺 ביטוי קליני</div>
+    <div class="section-title">תסמינים של תירוטוקסיקוזיס</div>
+    <div class="section-desc">הביטוי תלוי בחומרה, משך המחלה וגיל המטופל</div>
+  </div>
+
+  <div class="clinical-grid">
+    <div class="clinical-card">
+      <div class="clinical-card-title">❤️ קרדיווסקולרי</div>
+      <ul>
+        <li>טכיקרדיה (בד"כ ראשון)</li>
+        <li>דופק גבוה בלחיצה</li>
+        <li>פרפור פרוזדורים (AF) — בקשישים</li>
+        <li>אי ספיקת לב בקיצוניות</li>
+        <li>לחץ דם סיסטולי עולה</li>
+      </ul>
+    </div>
+    <div class="clinical-card">
+      <div class="clinical-card-title">🧠 נוירו-פסיכי</div>
+      <ul>
+        <li>אי שקט, חרדה</li>
+        <li>רעד עדין בידיים</li>
+        <li>הפרעות שינה</li>
+        <li>קושי בריכוז</li>
+        <li>עצבנות</li>
+      </ul>
+    </div>
+    <div class="clinical-card">
+      <div class="clinical-card-title">⚖️ מטבולי</div>
+      <ul>
+        <li>ירידה במשקל (אם תיאבון תקין)</li>
+        <li>הזעה מוגברת</li>
+        <li>אי סבילות לחום</li>
+        <li>חולשת שרירים</li>
+        <li>Periodic paralysis (אסייתים)</li>
+      </ul>
+    </div>
+    <div class="clinical-card">
+      <div class="clinical-card-title">🫁 עור ושיער</div>
+      <ul>
+        <li>עור חם ולח</li>
+        <li>נשירת שיער</li>
+        <li>ציפורניים שבירות</li>
+        <li>Onycholysis (Plummer's nails)</li>
+      </ul>
+    </div>
+    <div class="clinical-card">
+      <div class="clinical-card-title">🍽️ עיכול</div>
+      <ul>
+        <li>שלשולים</li>
+        <li>תדירות יציאות מוגברת</li>
+        <li>בחילה</li>
+      </ul>
+    </div>
+    <div class="clinical-card">
+      <div class="clinical-card-title">👴 בגיל מבוגר — Apathetic</div>
+      <ul>
+        <li>ירידה במשקל ועייפות בלבד</li>
+        <li>AF כביטוי ראשוני</li>
+        <li>ללא חרדה/רעד</li>
+        <li>קל לפספס!</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight highlight-teal">
+    <strong>Thyroid Storm — חירום!</strong> מצב של תירוטוקסיקוזיס קיצוני עם קצב לב מעל 140, חום מעל 40°C, הפרעות הכרה, אי ספיקת לב. טיפול: PTU/Methimazole + Lugol's iodine + Propranolol + Hydrocortisone + תיקון הגורם המשקע.
+  </div>
+
+  <div class="quiz-block">
+    <div class="quiz-q">❓ גבר בן 72 עם AF (Atrial Fibrillation — פרפור פרוזדורים) חדש שאינו מגיב לקרדיוורסיה חשמלית. ה-TSH (Thyroid-Stimulating Hormone — הורמון מגרה תריס) מדוכא. הוחל Methimazole. מתי ניתן לצפות לחזרה לסינוס?</div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q5')"><div class="opt-badge">א</div>מיידית עם תחילת ATD</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q5')"><div class="opt-badge">ב</div>אין טעם — AF בתירוטוקסיקוזיס הוא קבוע ודורש אבלציה</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,true,'q5')"><div class="opt-badge">ג</div>כ-50% מהמטופלים יחזרו לסינוס לאחר השגת euthyroidism</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q5')"><div class="opt-badge">ד</div>רק לאחר RAI — ATD לבדו אינו מספיק לחזרת מקצב סינוס</div>
+    </div>
+    <div class="quiz-feedback fb-correct" id="fb-q5-c">✅ <strong>נכון!</strong> טיפול בתירוטוקסיקוזיס בלבד מחזיר מקצב סינוס ב-<strong>~50% מהמקרים</strong>. יש להמתין 3–4 חודשים לאחר euthyroidism לפני הערכה מחדש. בגיל מבוגר (מעל 50) AF שכיח יותר ועלול להיות הביטוי <strong>היחיד</strong> (Apathetic thyrotoxicosis) — לכן חשוב לבדוק TSH בכל AF חדש.</div>
+    <div class="quiz-feedback fb-wrong" id="fb-q5-w">❌ כ-50% מהמקרים חוזרים לסינוס עם איזון תפקוד התריס בלבד. יש להמתין לאחר השגת euthyroidism לפני אבלציה. TSH תמיד בבדיקה ראשונה ב-AF חדש.</div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-outline" onclick="goTo(4)">◄ הקודם</button>
+    <button class="btn btn-orange" onclick="goTo(6)">הבא: הדמיה ואבחנה ►</button>
+  </div>
+</div>
+
+<!-- ===== SLIDE 6: IMAGING ===== -->
+<div class="slide" id="slide-6">
+  <div class="section-header" style="background: linear-gradient(135deg, #1A5FA8 0%, #123E72 100%);">
+    <div class="section-badge">🖼️ הדמיה ואבחנה</div>
+    <div class="section-title">סונאר, מיפוי ו-Uptake</div>
+    <div class="section-desc">הדמיה היא כלי קריטי להבדיל בין סיבות שונות לתירוטוקסיקוזיס</div>
+  </div>
+
+  <div class="imaging-tabs">
+    <div class="imaging-tab active" onclick="showImagingTab('sonography')">🔊 סונאר צווארי</div>
+    <div class="imaging-tab" onclick="showImagingTab('scintigraphy')">☢️ מיפוי תירואיד</div>
+    <div class="imaging-tab" onclick="showImagingTab('labs')">🧪 בדיקות מעבדה</div>
+  </div>
+
+  <div class="imaging-panel active" id="imaging-sonography">
+    <div class="imaging-row">
+      <div class="imaging-text">
+        <h4>סונוגרפיה תירואידלית (US)</h4>
+        <p>הבדיקה הראשונה בקו לכל מטופל עם גוש/זפק. אינה מדידה תפקודית אלא מורפולוגית.</p>
+        <ul>
+          <li>גודל, אחידות וצפיפות הבלוטה</li>
+          <li>זיהוי גושים — מספר, גודל, מאפיינים</li>
+          <li>Doppler: זרימת דם מוגברת ← Graves</li>
+          <li>גושים חשודים: מיקרוקלציפיקציות, אי-סדירות</li>
+          <li>הנחיית FNA (ביופסיה) לגושים חשודים</li>
+        </ul>
+        <div class="highlight highlight-teal" style="margin-top:1rem">
+          <strong>Graves בסונאר:</strong> בלוטה מוגדלת, הומוגנית, היפואקוגנית, Doppler עשיר ("thyroid inferno").
+        </div>
+      </div>
+      <div class="imaging-img-placeholder">
+        <div class="imaging-icon">🔊</div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Thyroid Ultrasound</div>
+        <div class="imaging-caption">Graves: בלוטה מוגדלת + Doppler עשיר</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="imaging-panel" id="imaging-scintigraphy">
+    <div class="imaging-row">
+      <div class="imaging-text">
+        <h4>מיפוי תירואיד + Radioactive Iodine Uptake (RAIU)</h4>
+        <p>בדיקה תפקודית — מוכרחים אותה להבדיל בין ייצור מוגבר לבין הרס בלוטה.</p>
+        <ul>
+          <li><strong>Graves:</strong> Uptake גבוה + פיזור מפוזר אחיד</li>
+          <li><strong>Toxic MNG:</strong> Uptake גבוה + מוקדים חמים מרובים</li>
+          <li><strong>Toxic adenoma:</strong> מוקד חם יחיד, רקמה מסביב מדוכאת</li>
+          <li><strong>Thyroiditis:</strong> Uptake נמוך/אפסי</li>
+          <li><strong>Amiodarone Type II:</strong> Uptake נמוך</li>
+        </ul>
+        <div class="highlight" style="margin-top:1rem">
+          <strong>חשוב:</strong> יש לבצע RAI uptake <em>לפני</em> מתן טיפול ביוד או ניגוד. מינון Tc-99m או I-123.
+        </div>
+      </div>
+      <div class="imaging-img-placeholder">
+        <div class="imaging-icon">☢️</div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Thyroid Scintigraphy</div>
+        <div class="imaging-caption">Uptake גבוה מפוזר = Graves<br>Uptake נמוך = thyroiditis</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="imaging-panel" id="imaging-labs">
+    <h4 style="font-size:15px;font-weight:700;margin-bottom:1rem">פרופיל בדיקות מעבדה</h4>
+    <table class="mech-table">
+      <thead>
+        <tr><th>מצב</th><th>TSH</th><th>FT4</th><th>T3</th><th>נוגדנים</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Graves / יתר פעילות</td>
+          <td class="diag-tshlow">↓↓ מדוכא</td>
+          <td class="diag-ft4high">↑↑ גבוה</td>
+          <td style="color:var(--orange-dark);font-weight:700">↑ גבוה</td>
+          <td>TRAb+</td>
+        </tr>
+        <tr>
+          <td>תת-פעילות ראשונית</td>
+          <td class="diag-tshhigh">↑↑ גבוה</td>
+          <td class="diag-ft4low">↓ נמוך</td>
+          <td style="color:var(--blue);font-weight:700">↓ נמוך</td>
+          <td>Anti-TPO+ (Hashimoto)</td>
+        </tr>
+        <tr>
+          <td>תת-פעילות תת-קלינית</td>
+          <td class="diag-tshhigh">↑ גבוה</td>
+          <td>תקין</td>
+          <td>תקין</td>
+          <td>Anti-TPO+ לעיתים</td>
+        </tr>
+        <tr>
+          <td>יתר פעילות תת-קלינית</td>
+          <td class="diag-tshlow">↓ נמוך</td>
+          <td>תקין</td>
+          <td>תקין</td>
+          <td>משתנה</td>
+        </tr>
+        <tr>
+          <td>תקין</td>
+          <td>0.4–4.0 mU/L</td>
+          <td>0.8–1.8 ng/dL</td>
+          <td>80–200 ng/dL</td>
+          <td>שלילי</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-outline" onclick="goTo(5)">◄ הקודם</button>
+    <button class="btn btn-orange" onclick="goTo(7)">הבא: טיפול ►</button>
+  </div>
+</div>
+
+<!-- ===== SLIDE 7: TREATMENT ===== -->
+<div class="slide" id="slide-7">
+  <div class="section-header">
+    <div class="section-badge">💊 טיפול</div>
+    <div class="section-title">טיפול ביתר פעילות בלוטת התריס</div>
+    <div class="section-desc">שלוש אפשרויות טיפוליות — כל אחת עם יתרונות ומגבלות</div>
+  </div>
+
+  <div class="treatment-tabs">
+    <div class="treatment-tab active" onclick="showTreatment('atd')">💊 תרופות (ATD)</div>
+    <div class="treatment-tab" onclick="showTreatment('rai')">☢️ יוד רדיואקטיבי</div>
+    <div class="treatment-tab" onclick="showTreatment('surgery')">🔪 ניתוח</div>
+    <div class="treatment-tab" onclick="showTreatment('symptomatic')">❤️ טיפול תסמיני</div>
+    <div class="treatment-tab" onclick="showTreatment('storm')" style="background:var(--red-light);border-color:var(--red);color:var(--red);">🚨 Thyroid Storm</div>
+  </div>
+
+  <div class="treatment-panel active" id="treatment-atd">
+    <h4>Anti-Thyroid Drugs (ATD) — Methimazole / PTU</h4>
+    <p>הקו הראשון בישראל וברוב אירופה. מנגנון: עיכוב סינתזת הורמוני תריס ע"י חסימת TPO.</p>
+    <ul>
+      <li><strong>Methimazole (Tapazole)</strong> — עדיף ברוב המקרים. מינון: 10–40 mg/יום. יתרונות: פחות תופעות לוואי, מינון אחד ביום.</li>
+      <li><strong>PTU (Propylthiouracil)</strong> — עדיף בהריון ראשון (שליש ראשון), בטיפול בסערת תריס. גם מעכב המרת T4→T3 בפריפריה.</li>
+      <li><strong>משך טיפול:</strong> 12–18 חודש ל-Graves. הפוגה (remission) ב-40–60%.</li>
+      <li><strong>תופעות לוואי:</strong> ⚠️ אגרנולוציטוזיס (נדיר, 0.3%) — בכל חום/כאב גרון תחת ATD: הפסק מיד + CBC דחוף!</li>
+      <li><strong>מעקב:</strong> TSH + FT4 כל 4–6 שבועות בתחילה, ואז כל 3 חודשים.</li>
+    </ul>
+  </div>
+
+  <div class="treatment-panel" id="treatment-rai">
+    <h4>☢️ Radioactive Iodine (RAI / I-131)</h4>
+    <p>RAI גורם להרס הדרגתי של תאי התריס. השפעה מלאה תוך 2–3 חודשים — בינתיים ניתן Beta blockers / ATD.</p>
+    <ul>
+      <li><strong>התוויות נגד מוחלטות:</strong> הריון, הנקה. ניתן להרות 6 חודשים לאחר הטיפול.</li>
+      <li><strong>Ophthalmopathy:</strong> RAI עלול להחמיר TAO! אם יש mild ophthalmopathy במעשן — כיסוי Prednisone. Moderate-severe TAO — RAI אסור.</li>
+      <li><strong>זהירות בקשישים / מחלת לב:</strong> טיפול מוקדם ב-ATD + Beta blocker לפני RAI למניעת thyrotoxic crisis.</li>
+      <li><strong>ATD לפני RAI:</strong> להפסיק כמה ימים לפני (אחרת uptake ירד) — אפשר לחדש 3–7 ימים אחרי.</li>
+      <li><strong>מגע עם ילדים/הרות:</strong> יש להימנע 5–7 ימים לאחר RAI.</li>
+      <li><strong>תוצאה צפויה:</strong> היפותירואידיזם — רצוי ומוצלח. LT4 לכל החיים.</li>
+      <li><strong>אינו מתאים:</strong> תירואידיטיס (uptake נמוך) — הI-131 לא ייקלט.</li>
+    </ul>
+  </div>
+
+  <div class="treatment-panel" id="treatment-surgery">
+    <h4>🔪 ניתוח — Total/Near-Total Thyroidectomy</h4>
+    <p>בחירה עדיפה כאשר: זפק גדול מאוד, Graves ophthalmopathy פעילה, relapse לאחר ATD, צעירים, חשד לממאירות.</p>
+    <ul>
+      <li><strong>הכנה מוכרחת לפני ניתוח:</strong> (1) ATD עד euthyroidism ← (2) Potassium iodide (SSKI) להפחתת וסקולריות הבלוטה ומניעת thyrotoxic crisis.</li>
+      <li><strong>סיבוכים:</strong> דימום, בצקת גרון, <strong>היפופאראתירואידיזם</strong> (היפוקלצמיה!), פגיעה בעצב חוזר (צרידות) — נדירים בידיים מיומנות.</li>
+      <li><strong>תוצאה:</strong> היפותירואידיזם קבוע ← LT4 לכל החיים.</li>
+      <li><strong>Graves ophthalmopathy פעילה:</strong> ניתוח עדיף על RAI.</li>
+      <li><strong>הריון:</strong> אם חייבים ניתוח — עדיף שליש שני. RAI אסור לחלוטין בהריון.</li>
+    </ul>
+  </div>
+
+  <div class="treatment-panel" id="treatment-symptomatic">
+    <h4>❤️ טיפול תסמיני</h4>
+    <p>בנוסף לטיפול הספציפי — לשיפור מהיר של הסימפטומים.</p>
+    <ul>
+      <li><strong>Beta blockers (Propranolol 20–40 mg/6h)</strong> — מוריד קצב לב, רעד, חרדה. גם מעכב T4→T3. עד שה-ATD פועל.</li>
+      <li><strong>Calcium channel blockers</strong> — אם Beta blockers בהתוויית נגד (אסתמה).</li>
+      <li><strong>Lugol's iodine (SSKI)</strong> — לפני ניתוח ובסערת תריס. חוסם הפרשת הורמונים.</li>
+      <li><strong>Selenium</strong> — לטיפול ב-Graves ophthalmopathy קלה-בינונית.</li>
+    </ul>
+  </div>
+  <div class="treatment-panel" id="treatment-storm">
+    <h4>🚨 Thyroid Storm — חירום רפואי</h4>
+    <p>תירוטוקסיקוזיס קיצונית עם אי-יציבות מולטי-סיסטמית. תמותה עד 30% גם עם טיפול!</p>
+    <ul>
+      <li><strong>גורמים מגרים:</strong> מחלה חריפה (אינפקציה, CVA, טראומה, DKA), ניתוח תריס, RAI במטופל לא מאוזן.</li>
+      <li><strong>טיפול — ה"5P":</strong></li>
+      <li><strong>PTU במינון גבוה</strong> (עדיף על MMI — מעכב גם T4→T3 conversion).</li>
+      <li><strong>Potassium iodide (SSKI)</strong> — שעה לאחר ה-PTU הראשון! (Wolff-Chaikoff effect). אסור לתת לפני PTU!</li>
+      <li><strong>Propranolol</strong> — מדכא adrenergic + מעכב T4→T3.</li>
+      <li><strong>Prednisone / Hydrocortisone</strong> — 300 mg IV bolus ואז 100 mg כל 8 שעות.</li>
+      <li><strong>Supportive:</strong> ניטור אינטנסיבי, אנטיביוטיקה אם יש זיהום, קירור, O₂, נוזלים IV.</li>
+    </ul>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-outline" onclick="goTo(6)">◄ הקודם</button>
+    <button class="btn btn-orange" onclick="goTo(8)">הבא: תת-פעילות ►</button>
+  </div>
+</div>
+
+<!-- ===== SLIDE 8: HYPOTHYROIDISM ===== -->
+<div class="slide" id="slide-8">
+  <div class="section-header teal-header">
+    <div class="section-badge">🔵 חלק ב — תת-פעילות בלוטת התריס</div>
+    <div class="section-title">Hypothyroidism & Hashimoto</div>
+    <div class="section-desc">המחלה האוטואימונית השכיחה ביותר בנשים</div>
+  </div>
+
+  <div class="content-block">
+    <div class="block-title">סיבות שכיחות — לפי שכיחות</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">1. Hashimoto Thyroiditis (AIT)</div>
+          <div class="tl-pct">~70% במדינות עם יוד תקין</div>
+          <div class="tl-desc">מחלה אוטואימונית עם נוגדני Anti-TPO ו-Anti-Tg. הרס הדרגתי של הבלוטה. שכיחה בנשים 40–60.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">2. טיפול קודם ביתר פעילות</div>
+          <div class="tl-pct">~15%</div>
+          <div class="tl-desc">לאחר RAI או ניתוח — תוצאה צפויה ורצויה. טיפול ב-Levothyroxine לכל החיים.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">3. תרופות</div>
+          <div class="tl-pct">~10%</div>
+          <div class="tl-desc">Amiodarone, Lithium, Interferon-α, Checkpoint inhibitors (Immunotherapy).</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">4. חסר יוד</div>
+          <div class="tl-pct">נדיר בישראל</div>
+          <div class="tl-desc">הסיבה הנפוצה בעולם — נדיר בישראל בשל מלח מיודד.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-block">
+    <div class="block-title">ביטוי קליני — Hashimoto / Hypothyroidism</div>
+    <div class="clinical-grid">
+      <div class="clinical-card">
+        <div class="clinical-card-title">⚖️ מטבולי</div>
+        <ul>
+          <li>עלייה במשקל</li>
+          <li>עייפות כרונית</li>
+          <li>אי סבילות לקור</li>
+          <li>בצקת כללית</li>
+        </ul>
+      </div>
+      <div class="clinical-card">
+        <div class="clinical-card-title">🧠 נוירולוגי</div>
+        <ul>
+          <li>האטה קוגניטיבית</li>
+          <li>דיכאון</li>
+          <li>פאראסתזיות (תחושות נימול)</li>
+          <li>תסמונת התעלה הקרפלית (Carpal Tunnel Syndrome)</li>
+        </ul>
+      </div>
+      <div class="clinical-card">
+        <div class="clinical-card-title">🫁 עור ושיער</div>
+        <ul>
+          <li>עור יבש, גס</li>
+          <li>שיער דליל + נשירה</li>
+          <li>גבות דקות (External 1/3)</li>
+          <li>מיקסדמה (Myxedema) — בצקת <strong>לא גומתית</strong> (Non-pitting edema)</li>
+        </ul>
+      </div>
+      <div class="clinical-card">
+        <div class="clinical-card-title">❤️ קרדיו</div>
+        <ul>
+          <li>ברדיקרדיה</li>
+          <li>הארכת QT</li>
+          <li>Pericardial effusion</li>
+          <li>יל"ד דיאסטולי</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight highlight-blue">
+    <strong>Myxedema Coma — חירום!</strong> תת-פעילות חמורה עם שינוי הכרה, היפותרמיה, ברדיקרדיה. <strong>סדר הטיפול קריטי:</strong> (1) <strong>Hydrocortisone IV תחילה</strong> — לכסות אי-ספיקת אדרנל יחסית לפני שהורמוני תריס מגבירים מטבוליזם קורטיזול; (2) הורמוני תריס IV (T4 ± T3); (3) חימום פאסיבי; (4) איזון אלקטרוליטים. מרבית המקרים: קשישים לא מטופלים.
+  </div>
+  <div class="content-block" style="margin-top:1.5rem;">
+    <div class="block-title">טיפול ב-Hypothyroidism — Levothyroxine (LT4)</div>
+    <div class="accordion">
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span>💊 מינון ותחילת טיפול</span><span class="acc-arrow">▾</span>
+        </div>
+        <div class="acc-body">
+          מינון החלפה מלא: <strong>1.6 mcg/kg/d</strong> (בד"כ 100–150 mcg). מינון פתיחה: 50–100 mcg/d בצעירים בריאים.<br>
+          <strong>לקחת לפחות 30 דקות לפני ארוחת הבוקר.</strong> תרופות רבות מפריעות לספיגה (Calcium, Iron, PPI, Cholestyramine) — <strong>יש להפריד לפחות 4 שעות</strong>.<br>
+          ניתוח TSH כ-2 חודשים לאחר שינוי מינון. סימפטומים עשויים לחכות 3–6 חודשים.
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span>👴 קשישים ומחלת לב</span><span class="acc-arrow">▾</span>
+        </div>
+        <div class="acc-body">
+          מינון פתיחה נמוך מאוד: <strong>12.5–25 mcg/d</strong>, עלייה הדרגתית כל 2–3 חודשים עד לTSH תקין. חובה עקב סיכון לאנגינה ו-AF עם מינון גבוה.
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span>🤰 הריון</span><span class="acc-arrow">▾</span>
+        </div>
+        <div class="acc-body">
+          צרכי LT4 עולים בהריון! המלצה: <strong>להעלות מינון מ-7 ימי נטילה ל-9 ימי נטילה בשבוע</strong> ברגע שנודע על הריון. מטרת TSH: חלק התחתון של טווח נורמה, עדיף &lt;2.5 mIU/L. לאחר לידה — חזרה למינון לפני הריון.
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span>📊 תת-פעילות תת-קלינית (TSH גבוה + FT4 תקין)</span><span class="acc-arrow">▾</span>
+        </div>
+        <div class="acc-body">
+          <strong>מתי לטפל ב-LT4?</strong><br>
+          • TSH &gt;10 mIU/L (ללא קשר לתסמינים)<br>
+          • הריון או תכנון הריון (בכל רמת TSH מעל נורמה)<br>
+          • נוכחות Anti-TPO+ עם TSH &gt;5 — שוקלים טיפול (סיכון לprогрессионה גבוה ~4%/שנה)<br>
+          • תסמינים קשים + דיסליפידמיה/יל"ד בגיל צעיר<br>
+          <strong>רוב שאר המטופלים (TSH 5–10, א-סימפטומטי) — מעקב שנתי ללא טיפול.</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+<div onclick="window.open('https://www.youtube.com/watch?v=1nqx__Kyfbw','_blank')" style="background:var(--white);border:1.5px solid #FF0000;border-radius:var(--radius);overflow:hidden;cursor:pointer;display:flex;align-items:stretch;margin:1.25rem 0;transition:box-shadow 0.2s,transform 0.15s;" onmouseover="this.style.boxShadow='0 4px 16px rgba(255,0,0,0.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='none';this.style.transform='none'"><div style="background:#FF0000;min-width:88px;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:1.25rem;"><svg width="36" height="26" viewBox="0 0 36 26" fill="none"><rect width="36" height="26" rx="5" fill="rgba(255,255,255,0.15)"/><polygon points="13,7 27,13 13,19" fill="white"/></svg><div style="color:white;font-size:10px;margin-top:6px;font-weight:700;letter-spacing:0.5px;">YouTube</div></div><div style="padding:1rem 1.5rem;flex:1;display:flex;flex-direction:column;justify-content:center;"><div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF0000;margin-bottom:4px;">סרטון וידאו להעשרה</div><div style="font-size:15px;font-weight:700;color:var(--gray-800);margin-bottom:3px;">Hypothyroidism & Hashimoto — Full Review</div><div style="font-size:12px;color:var(--gray-400);margin-bottom:10px;">Osmosis · 6 דקות</div><div style="display:inline-flex;align-items:center;gap:6px;background:#FF0000;color:white;border-radius:6px;padding:5px 14px;font-size:13px;font-weight:600;width:fit-content;">▶ לחץ לצפייה</div></div></div>
+  <div class="quiz-block">
+    <div class="quiz-q">❓ מטופלת עם Hashimoto מטופלת ב-LT4 (Levothyroxine) 150 mcg/d. TSH (Thyroid-Stimulating Hormone — הורמון מגרה תריס)=9 mIU/L (גבוה). היא טוענת לנטילה קבועה. מה הסיבה השכיחה ביותר לצורך במינון גבוה?</div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q8')"><div class="opt-badge">א</div>נוגדני TPO גבוהים מנטרלים את ה-LT4</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q8')"><div class="opt-badge">ב</div>המינון אינו מספיק — יש להעלות ל-200 mcg</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,true,'q8')"><div class="opt-badge">ג</div>הפרעת ספיגה — נטילה עם אוכל, Calcium, Iron, PPI, או מחלת מעי</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,false,'q8')"><div class="opt-badge">ד</div>Hashimoto מפתח עמידות להורמון בשלבים מתקדמים</div>
+    </div>
+    <div class="quiz-feedback fb-correct" id="fb-q8-c">✅ <strong>נכון!</strong> מטופל הנוטל ≥200 mcg עם TSH גבוה = <strong>poor adherence OR malabsorption</strong>. גורמי הפרעת ספיגה: נטילה עם ארוחה, Calcium, Iron <strong>(יש להפריד לפחות 4 שעות!)</strong>, PPI/H2 blockers, Cholestyramine, Celiac disease, גסטריטיס. אין עמידות ל-LT4, ו-Anti-TPO אינם מנטרלים T4.</div>
+    <div class="quiz-feedback fb-wrong" id="fb-q8-w">❌ הפרעת ספיגה היא הסיבה השכיחה ביותר כשמינון גבוה ו-TSH עדיין גבוה. Anti-TPO אינם מפריעים לפעולת LT4. אין עמידות להורמון ב-Hashimoto.</div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-outline" onclick="goTo(7)">◄ הקודם</button>
+    <button class="btn btn-orange" onclick="goTo(9)">הבא: מקרה קליני ►</button>
+  </div>
+</div>
+
+<!-- ===== SLIDE 9: CLINICAL CASE ===== -->
+<div class="slide" id="slide-9">
+  <div class="section-header">
+    <div class="section-badge">👩‍⚕️ מקרה קליני מתגלגל</div>
+    <div class="section-title">מקרה: אישה בת 34</div>
+    <div class="section-desc">עקבו אחר המקרה שלב אחרי שלב — כל תשובה מקדמת אתכם</div>
+  </div>
+
+  <div class="case-block">
+    <div class="case-header">📋 מקרה קליני מתגלגל — 4 שלבים</div>
+
+    <!-- Step 1 -->
+    <div class="case-step" id="case-1" style="display:block">
+      <div class="case-step-label">שלב 1 — הצגה</div>
+      <div class="case-text">אישה בת 34 מגיעה לרופא משפחה עם תלונות של <strong>3 חודשים</strong>: ירידה של 6 ק"ג במשקל למרות תיאבון תקין, דפיקות לב, אי שקט, הפרעות שינה ורעד עדין בידיים. אין תרופות קבועות. ללא עישון.</div>
+      <div class="case-q">❓ מה הכיוון האבחנתי הסביר ביותר?</div>
+      <div class="case-opts">
+        <div class="case-opt" onclick="handleCase(this, false, 1)">חרדה כללית (GAD)</div>
+        <div class="case-opt" onclick="handleCase(this, true, 1)">תירוטוקסיקוזיס</div>
+        <div class="case-opt" onclick="handleCase(this, false, 1)">תת-פעילות בלוטת התריס</div>
+        <div class="case-opt" onclick="handleCase(this, false, 1)">פיאוכרומוציטומה</div>
+      </div>
+      <div class="case-reveal" id="reveal-1">
+        ✅ <strong>תירוטוקסיקוזיס</strong> — הצירוף של ירידה במשקל עם תיאבון שמור, דפיקות לב, רעד ואי שקט הוא קלאסי. הבדיקה הראשונה: <strong>TSH + FT4</strong>.
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="case-step" id="case-2">
+      <div class="case-step-label">שלב 2 — תוצאות בדיקות</div>
+      <div class="case-text">בדיקות מעבדה: <strong>TSH &lt;0.01 mU/L</strong>, <strong>FT4 = 3.8 ng/dL</strong> (גבוה מאוד). בבדיקה פיזיקלית: דופק 112, לחץ דם 138/72, <strong>זפק דיפוזי</strong> חלק ורך עם bruit, רעד דק בידיים.</div>
+      <div class="case-q">❓ מה האבחנה הסבירה ביותר?</div>
+      <div class="case-opts">
+        <div class="case-opt" onclick="handleCase(this, false, 2)">Toxic multinodular goiter</div>
+        <div class="case-opt" onclick="handleCase(this, true, 2)">Graves disease</div>
+        <div class="case-opt" onclick="handleCase(this, false, 2)">Subacute thyroiditis</div>
+      </div>
+      <div class="case-reveal" id="reveal-2">
+        ✅ <strong>Graves disease</strong> — זפק דיפוזי חלק + bruit + TSH מדוכא + FT4 גבוה = תמונה קלאסית. לאשש עם TRAb (TSI). זפק קשרי רעיל (Toxic MNG) יתאפיין בקשריות במישוש ו/או בדימות. Subacute thyroiditis תתאפיין בכאב, חום ו-VSR מוגבר.
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="case-step" id="case-3">
+      <div class="case-step-label">שלב 3 — מידע נוסף</div>
+      <div class="case-text">בסיכום — המטופלת <strong>מעשנת 10 סיגריות ביום</strong> ומתלוננת בנוסף על <strong>תחושת לחץ בעיניים</strong>, ראייה כפולה ואדמומיות עיניים לאחרונה.</div>
+      <div class="case-q">❓ איזה סיבוך ספציפי יש לחשוד בו ולאסוף מידע עליו?</div>
+      <div class="case-opts">
+        <div class="case-opt" onclick="handleCase(this, false, 3)">גלאוקומה ראשונית</div>
+        <div class="case-opt" onclick="handleCase(this, false, 3)">Orbital cellulitis</div>
+        <div class="case-opt" onclick="handleCase(this, true, 3)">Graves Ophthalmopathy (TAO)</div>
+      </div>
+      <div class="case-reveal" id="reveal-3">
+        ✅ <strong>Graves Ophthalmopathy (TAO)</strong> — עישון הוא גורם הסיכון המשמעותי ביותר! יש להפנות לאופתלמולוג לסולם CAS. MRI אורביטות לאישוש. טיפול RAI יכול להחמיר TAO — לשקול ניתוח או ATD.
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="case-step" id="case-4">
+      <div class="case-step-label">שלב 4 — תוכנית טיפול</div>
+      <div class="case-text"><strong>אבחנה סופית:</strong> Graves disease עם Graves ophthalmopathy. TRAb חיובי. Proptosis דו"צ.</div>
+      <div class="case-q">❓ מה תוכנית הטיפול המועדפת?</div>
+      <div class="case-opts">
+        <div class="case-opt" onclick="handleCase(this, false, 4)">RAI מיידי + עצירת עישון</div>
+        <div class="case-opt" onclick="handleCase(this, true, 4)">Methimazole + Beta blocker + הפנייה לאופתלמולוג + הפסקת עישון</div>
+        <div class="case-opt" onclick="handleCase(this, false, 4)">ניתוח מיידי ללא הכנה</div>
+      </div>
+      <div class="case-reveal" id="reveal-4">
+        ✅ <strong>ATD (Methimazole) + Propranolol</strong> — בנוכחות TAO פעיל, RAI אינו עדיף (עלול להחמיר). Methimazole 20–30mg/d + Beta blocker לסימפטומים. הפסקת עישון קריטית! פנייה לאופתלמולוג לסולם CAS + שקילת סטרואידים IV אם TAO פעיל חמור.
+      </div>
+    </div>
+
+    <div class="case-footer">
+      <div style="font-size:13px;color:var(--gray-400)" id="case-progress">שלב 1 מתוך 4</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-outline" id="case-prev-btn" onclick="prevCase()" disabled>◄</button>
+        <button class="btn btn-teal" id="case-next-btn" onclick="nextCase()" disabled>הבא ►</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-outline" onclick="goTo(8)">◄ הקודם</button>
+    <button class="btn btn-orange" onclick="goTo(10)">🏆 לבוחן הסיכום ►</button>
+  </div>
+</div>
+
+<!-- ===== SLIDE 10: FINAL QUIZ ===== -->
+<div class="slide" id="slide-10">
+  <div class="section-header" style="background: linear-gradient(135deg, #2C2A27 0%, #1a1816 100%);">
+    <div class="section-badge">🏆 בוחן סיכום</div>
+    <div class="section-title">בדוק את עצמך — 10 שאלות</div>
+    <div class="section-desc">ענו על כל שאלה לקבלת ציון במבוא. אין לחזור אחורה.</div>
+  </div>
+
+  <div class="final-quiz-wrap">
+    <div class="final-quiz-header">
+      <h2>בוחן סיכום — מחלות בלוטת התריס</h2>
+    </div>
+
+    <div class="fq-question active" id="fq-1">
+      <div class="fq-q-label">שאלה 1 מתוך 10</div>
+      <div class="fq-q-text">מטופלת עם Amiodarone מפתחת תירוטוקסיקוזיס. Uptake נמוך, IL-6 מוגבר, ללא זפק. מה הסוג וה-Tx הנכון?</div>
+      <div class="fq-opts">
+        <div class="fq-opt" onclick="handleFQ(this,false,1)">AIT Type I — Antithyroid drugs במינון גבוה</div>
+        <div class="fq-opt" onclick="handleFQ(this,true,1)">AIT Type II — Glucocorticoids; המשך/הפסקת Amiodarone ייקבע פרטנית עם קרדיולוג</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,1)">AIT Type I — RAI לאחר הפסקת Amiodarone</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,1)">AIT Type II — PTU עדיף על MMI</div>
+      </div>
+    </div>
+
+    <div class="fq-question" id="fq-2">
+      <div class="fq-q-label">שאלה 2 מתוך 10</div>
+      <div class="fq-q-text">מטופלת בת 32 עם Graves מציגה proptosis חד-צדדי בלבד. מה הצעד הבא?</div>
+      <div class="fq-opts">
+        <div class="fq-opt" onclick="handleFQ(this,false,2)">זה אופייני ל-Graves — לעקוב ולאזן תפקוד תריס</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,2)">MRI אורביטות לשלילת אקסופטלמוס בילטרלי א-סימטרי</div>
+        <div class="fq-opt" onclick="handleFQ(this,true,2)">CT/MRI אורביטות לשלילת מסה רטרואורביטלית — proptosis חד-צדדי דורש rule-out ממאירות</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,2)">פנייה מיידית לניתוח ל-orbital decompression</div>
+      </div>
+    </div>
+
+    <div class="fq-question" id="fq-3">
+      <div class="fq-q-label">שאלה 3 מתוך 10</div>
+      <div class="fq-q-text">מה מבדיל Subacute thyroiditis מ-Silent (painless) thyroiditis בשתי נקודות מרכזיות?</div>
+      <div class="fq-opts">
+        <div class="fq-opt" onclick="handleFQ(this,false,3)">Subacute: Anti-TPO+; Silent: Anti-TPO שלילי</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,3)">Subacute: Uptake גבוה; Silent: Uptake נמוך</div>
+        <div class="fq-opt" onclick="handleFQ(this,true,3)">Subacute: כאב + VSR מוגבר + ויראלי; Silent: ללא כאב + TPO+ + אוטואימוני</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,3)">Subacute: גורם RAI בד"כ; Silent: ספונטני בלבד</div>
+      </div>
+    </div>
+
+    <div class="fq-question" id="fq-4">
+      <div class="fq-q-label">שאלה 4 מתוך 10</div>
+      <div class="fq-q-text">מטופל עם Hashimoto מגיע עם TSH (Thyroid-Stimulating Hormone — הורמון מגרה תריס)=15, FT4 (Free T4 — תירוקסין חופשי)=0.6 (נמוך). Cholesterol=280, CPK=420. מה צפוי להתנרמל עם טיפול ב-LT4 (Levothyroxine) בלבד?</div>
+      <div class="fq-opts">
+        <div class="fq-opt" onclick="handleFQ(this,false,4)">Cholesterol בלבד — CPK ו-TSH הם מדדים עצמאיים</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,4)">CPK בלבד — Hypercholesterolemia נדרש Statin נוסף</div>
+        <div class="fq-opt" onclick="handleFQ(this,true,4)">גם Cholesterol וגם CPK — שניהם ביטויים של היפומטבוליזם מתוקן</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,4)">לא אחד מהם — מדדים אלו אינם קשורים לתפקוד תריס</div>
+      </div>
+    </div>
+
+    <div class="fq-question" id="fq-5">
+      <div class="fq-q-label">שאלה 5 מתוך 10</div>
+      <div class="fq-q-text">אישה בת 30 עם Hashimoto מאוזן ב-LT4 (Levothyroxine) מגיעה בשליש ראשון להריון. TSH (Thyroid-Stimulating Hormone — הורמון מגרה תריס)=2.8. מה הצעד הנכון?</div>
+      <div class="fq-opts">
+        <div class="fq-opt" onclick="handleFQ(this,false,5)">אין לשנות מינון — TSH תקין</div>
+        <div class="fq-opt" onclick="handleFQ(this,true,5)">להגדיל מינון LT4 מיידית (9 מנות/שבוע במקום 7) — הצרכים עולים בהריון</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,5)">לעצור LT4 — הורמוני אם חוצים שליה ועלולים לפגוע בעובר</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,5)">לעבור ל-T3 (Liothyronine) בהריון — T4 אינו חוצה שליה</div>
+      </div>
+    </div>
+
+    <div class="fq-question" id="fq-6">
+      <div class="fq-q-label">שאלה 6 מתוך 10</div>
+      <div class="fq-q-text">בחולת Thyroid storm, מדוע חייבים לתת PTU (Propylthiouracil) שעה לפני Lugol's iodine ולא להיפך?</div>
+      <div class="fq-opts">
+        <div class="fq-opt" onclick="handleFQ(this,false,6)">Lugol יגרום להיפרמיה של הבלוטה ויעכב ספיגת PTU</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,6)">PTU ו-Lugol יחד גורמים ל-Wolff-Chaikoff effect מוגבר מדי</div>
+        <div class="fq-opt" onclick="handleFQ(this,true,6)">יוד יכול לשמש כסובסטרט לסינתזת הורמונים — PTU קודם חוסם TPO כך שהיוד לא ייהפך להורמון</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,6)">Lugol מעכב ספיגת PTU במעי — יש להפריד בזמן</div>
+      </div>
+    </div>
+
+    <div class="fq-question" id="fq-7">
+      <div class="fq-q-label">שאלה 7 מתוך 10</div>
+      <div class="fq-q-text">Subacute thyroiditis — מה מנגנון התירוטוקסיקוזיס ומדוע Beta blockers (לא ATD (Anti-Thyroid Drugs — תרופות אנטי-תירואידיות)) הם הטיפול?</div>
+      <div class="fq-opts">
+        <div class="fq-opt" onclick="handleFQ(this,false,7)">הבלוטה מייצרת יותר T4 ← ATD מתאים</div>
+        <div class="fq-opt" onclick="handleFQ(this,true,7)">הרס זקיקים משחרר הורמונים מאוחסנים ← ייצור לא מוגבר ← ATD חסר תוחלת</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,7)">TRAb מגרים ייצור ← כמו Graves, ATD יעיל</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,7)">TSH גבוה גורם לייצור מוגבר — Octreotide לדיכוי TSH</div>
+      </div>
+    </div>
+
+    <div class="fq-question" id="fq-8">
+      <div class="fq-q-label">שאלה 8 מתוך 10</div>
+      <div class="fq-q-text">גבר עם Toxic adenoma (TSH (Thyroid-Stimulating Hormone — הורמון מגרה תריס) מדוכא, FT4 (Free T4 — תירוקסין חופשי) גבוה, מוקד חם יחיד). הוא בן 35, בריא אחרת. מה הטיפול המועדף לאורך זמן?</div>
+      <div class="fq-opts">
+        <div class="fq-opt" onclick="handleFQ(this,false,8)">Methimazole לכל החיים — ATD יעיל ב-Toxic adenoma</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,8)">ניתוח — עדיף על RAI בגיל צעיר</div>
+        <div class="fq-opt" onclick="handleFQ(this,true,8)">RAI — המוקד הרדיואקטיבי נקלט סלקטיבית בגוש האוטונומי; רקמה תקינה מוגנת</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,8)">RFA — Radio-frequency ablation הוא הטיפול הראשון</div>
+      </div>
+    </div>
+
+    <div class="fq-question" id="fq-9">
+      <div class="fq-q-label">שאלה 9 מתוך 10</div>
+      <div class="fq-q-text">מטופלת עם Hashimoto + T1DM + Vitiligo. מה הסנדרום ומה הסיכון המוסף הדורש סקרינינג?</div>
+      <div class="fq-opts">
+        <div class="fq-opt" onclick="handleFQ(this,false,9)">APS Type 1 — Hypoparathyroidism + Addison + Candidiasis</div>
+        <div class="fq-opt" onclick="handleFQ(this,true,9)">APS Type 2 (Schmidt) — סיכון ל-Addison; יש לסקרין עם ACTH stimulation test אם תסמינים</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,9)">MEN Type 1 — Parathyroid + Pituitary + Pancreas</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,9)">MEN Type 2A — Medullary thyroid cancer + Pheo + Hyperparathyroidism</div>
+      </div>
+    </div>
+
+    <div class="fq-question" id="fq-10">
+      <div class="fq-q-label">שאלה 10 מתוך 10</div>
+      <div class="fq-q-text">מטופל עם Graves מאוזן ב-Methimazole 5mg/d למשך 18 חודשים. TRAb (TSH Receptor Antibodies — נוגדני קולטן TSH) עדיין פוזיטיבי פי 2. מה ההמלצה?</div>
+      <div class="fq-opts">
+        <div class="fq-opt" onclick="handleFQ(this,false,10)">לעצור ATD — 18 חודשים מספיקים בכל מקרה</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,10)">להמשיך ATD ל-36 חודשים — TRAb חיובי מצביע על מחלה פעילה</div>
+        <div class="fq-opt" onclick="handleFQ(this,true,10)">לדון במעבר לטיפול definitiveׂ (RAI/ניתוח) — TRAb+ לאחר 18 חודש מנבא relapse גבוה</div>
+        <div class="fq-opt" onclick="handleFQ(this,false,10)">להוסיף Selenium — מוריד TRAb ב-Graves</div>
+      </div>
+    </div>
+
+    <div class="fq-result" id="fq-result">
+      <div class="score-circle" id="score-circle">
+        <div class="score-big" id="score-num">-</div>
+        <div style="font-size:13px;color:var(--gray-400)">מתוך 10</div>
+      </div>
+      <div class="score-label" id="score-label">-</div>
+      <div class="score-sub" id="score-sub">-</div>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:1.5rem;flex-wrap:wrap;">
+        <button class="btn btn-outline" onclick="restartFQ()">🔄 בוחן מחדש</button>
+        <button class="btn btn-orange" onclick="goTo(0)">🏠 לתחילת הלומדה</button>
+        <button class="btn btn-teal" onclick="goTo(11)">📝 השאר משוב</button>
+      </div>
+    </div>
+
+    <div class="fq-footer" id="fq-footer">
+      <div class="fq-counter" id="fq-counter">שאלה 1 / 10</div>
+      <button class="btn btn-teal" id="fq-next-btn" onclick="nextFQ()" disabled>הבא ►</button>
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-outline" onclick="goTo(9)">◄ הקודם</button>
+  </div>
+</div>
+
+
+<!-- ===== SLIDE 11: FEEDBACK FORM ===== -->
+<div class="slide" id="slide-11">
+  <div class="section-header" style="background: linear-gradient(135deg, #1A5FA8 0%, #123E72 100%);">
+    <div class="section-badge">📝 משוב</div>
+    <div class="section-title">עזרו לנו לשפר את הלומדה</div>
+    <div class="section-desc">המשוב שלכם חשוב מאוד לשיפור החומר — ייקח כ-2 דקות</div>
+  </div>
+
+  <div style="background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:2rem;">
+    <iframe 
+      src="https://docs.google.com/forms/d/e/1FAIpQLSevJYTZWZ_AhYZh7K1RZarbLn2iXK27N9EW22wbmfoJ0PjslQ/viewform?embedded=true&usp=pp_url"
+      width="100%" 
+      height="900" 
+      frameborder="0" 
+      marginheight="0" 
+      marginwidth="0"
+      style="display:block;"
+    >
+      טוען טופס...
+    </iframe>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-outline" onclick="goTo(10)">◄ חזרה לבוחן</button>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+// ===== STATE =====
+let currentSlide = 0;
+let totalSlides = 12;
+let caseStep = 1;
+let maxCaseStep = 1;
+let fqCurrent = 1;
+let fqScore = 0;
+let fqAnswered = new Array(11).fill(false);
+let quizAnswered = {};
+
+// ===== NAVIGATION =====
+function goTo(n) {
+  document.getElementById('slide-' + currentSlide).classList.remove('active');
+  document.getElementById('nav-' + currentSlide).classList.remove('active');
+  document.getElementById('nav-' + currentSlide).classList.add('done');
+  currentSlide = n;
+  document.getElementById('slide-' + n).classList.add('active');
+  document.getElementById('nav-' + n).classList.add('active');
+  document.getElementById('nav-' + n).classList.remove('done');
+  let pct = Math.round((n / (totalSlides - 1)) * 100);
+  document.getElementById('topProgress').style.width = pct + '%';
+  document.getElementById('topPct').textContent = pct + '%';
+  window.scrollTo(0, 0);
+}
+
+// ===== QUIZ =====
+function handleQuiz(el, correct, qid) {
+  if (quizAnswered[qid]) return;
+  quizAnswered[qid] = true;
+  let opts = el.closest('.quiz-opts').querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.classList.add('locked'));
+  if (correct) {
+    el.classList.add('correct');
+    document.getElementById('fb-' + qid + '-c').classList.add('show');
+  } else {
+    el.classList.add('wrong');
+    document.getElementById('fb-' + qid + '-w').classList.add('show');
+    opts.forEach(o => {
+      if (!o.classList.contains('wrong')) {
+        let handler = o.getAttribute('onclick');
+        if (handler && handler.includes('true')) o.classList.add('correct');
+      }
+    });
+  }
+}
+
+// ===== ACCORDION =====
+function toggleAcc(header) {
+  let body = header.nextElementSibling;
+  let isOpen = body.classList.contains('open');
+  document.querySelectorAll('.acc-body').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.acc-header').forEach(h => h.classList.remove('open'));
+  if (!isOpen) { body.classList.add('open'); header.classList.add('open'); }
+}
+
+// ===== HPT =====
+function showHPT(n) {
+  for (let i = 1; i <= 3; i++) {
+    document.getElementById('hpt-' + i).classList.remove('active');
+    document.getElementById('hpt-info-' + i).classList.remove('show');
+  }
+  document.getElementById('hpt-' + n).classList.add('active');
+  document.getElementById('hpt-info-' + n).classList.add('show');
+  if (n === 2) document.getElementById('fb-arrow').style.display = 'flex';
+  else document.getElementById('fb-arrow').style.display = 'none';
+}
+
+// ===== IMAGING TABS =====
+function showImagingTab(name) {
+  document.querySelectorAll('.imaging-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.imaging-panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('imaging-' + name).classList.add('active');
+}
+
+// ===== TREATMENT TABS =====
+function showTreatment(name) {
+  document.querySelectorAll('.treatment-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.treatment-panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('treatment-' + name).classList.add('active');
+}
+
+// ===== CASE =====
+function handleCase(el, correct, step) {
+  if (el.classList.contains('locked')) return;
+  let opts = el.closest('.case-opts').querySelectorAll('.case-opt');
+  opts.forEach(o => o.classList.add('locked'));
+  if (correct) {
+    el.classList.add('correct');
+  } else {
+    el.classList.add('wrong');
+    opts.forEach(o => {
+      if (!o.classList.contains('wrong') && !o.classList.contains('correct')) {
+        let h = o.getAttribute('onclick');
+        if (h && h.includes('true')) o.classList.add('correct');
+      }
+    });
+  }
+  document.getElementById('reveal-' + step).classList.add('show');
+  document.getElementById('case-next-btn').disabled = false;
+  if (step > 1) document.getElementById('case-prev-btn').disabled = false;
+  document.getElementById('case-progress').textContent = 'שלב ' + step + ' מתוך 4';
+}
+
+function nextCase() {
+  if (caseStep >= 4) return;
+  document.getElementById('case-' + caseStep).style.display = 'none';
+  caseStep++;
+  document.getElementById('case-' + caseStep).style.display = 'block';
+  document.getElementById('case-progress').textContent = 'שלב ' + caseStep + ' מתוך 4';
+  document.getElementById('case-next-btn').disabled = true;
+  document.getElementById('case-prev-btn').disabled = false;
+  if (caseStep >= 4) document.getElementById('case-next-btn').textContent = 'סיום ✓';
+}
+
+function prevCase() {
+  if (caseStep <= 1) return;
+  document.getElementById('case-' + caseStep).style.display = 'none';
+  caseStep--;
+  document.getElementById('case-' + caseStep).style.display = 'block';
+  document.getElementById('case-progress').textContent = 'שלב ' + caseStep + ' מתוך 4';
+  document.getElementById('case-next-btn').disabled = false;
+  if (caseStep <= 1) document.getElementById('case-prev-btn').disabled = true;
+}
+
+// ===== FINAL QUIZ =====
+function handleFQ(el, correct, qnum) {
+  if (fqAnswered[qnum]) return;
+  fqAnswered[qnum] = true;
+  let opts = el.closest('.fq-opts').querySelectorAll('.fq-opt');
+  opts.forEach(o => o.classList.add('locked'));
+  if (correct) {
+    el.classList.add('correct');
+    fqScore++;
+  } else {
+    el.classList.add('wrong');
+    opts.forEach(o => {
+      if (!o.classList.contains('wrong')) {
+        let h = o.getAttribute('onclick');
+        if (h && h.includes('true')) o.classList.add('correct');
+      }
+    });
+  }
+  document.getElementById('fq-next-btn').disabled = false;
+}
+
+function nextFQ() {
+  if (!fqAnswered[fqCurrent]) return;
+  if (fqCurrent >= 10) {
+    showFQResult();
+    return;
+  }
+  document.getElementById('fq-' + fqCurrent).classList.remove('active');
+  fqCurrent++;
+  document.getElementById('fq-' + fqCurrent).classList.add('active');
+  document.getElementById('fq-counter').textContent = 'שאלה ' + fqCurrent + ' / 10';
+  document.getElementById('fq-next-btn').disabled = !fqAnswered[fqCurrent];
+  if (fqCurrent === 10) document.getElementById('fq-next-btn').textContent = 'סיום ✓';
+}
+
+function showFQResult() {
+  document.querySelectorAll('.fq-question').forEach(q => q.classList.remove('active'));
+  document.getElementById('fq-footer').style.display = 'none';
+  let result = document.getElementById('fq-result');
+  result.classList.add('show');
+  let num = document.getElementById('score-num');
+  let circle = document.getElementById('score-circle');
+  num.textContent = fqScore;
+  let pct = fqScore * 10;
+  let lbl, sub, color;
+  if (pct >= 90) { lbl = '🌟 מעולה!'; sub = 'שליטה מצוינת בחומר — מוכן/ה לבחינה!'; color = '#1E8449'; }
+  else if (pct >= 70) { lbl = '👍 טוב מאוד'; sub = 'כמעט שם! כדאי לחזור על הנושאים שלא ענית עליהם נכון.'; color = '#E8681A'; }
+  else if (pct >= 50) { lbl = '📚 בינוני'; sub = 'מומלץ לקרוא מחדש את החומר ולנסות שוב.'; color = '#C4520E'; }
+  else { lbl = '🔄 צריך לחזור'; sub = 'נסה/י לעבור שוב על הלומדה ולהתמקד בנושאים שפספסת.'; color = '#C0392B'; }
+  document.getElementById('score-label').textContent = lbl;
+  document.getElementById('score-sub').textContent = sub;
+  circle.style.borderColor = color;
+  num.style.color = color;
+}
+
+function restartFQ() {
+  fqCurrent = 1; fqScore = 0; fqAnswered = new Array(11).fill(false);
+  document.querySelectorAll('.fq-question').forEach(q => q.classList.remove('active'));
+  document.querySelectorAll('.fq-opt').forEach(o => {
+    o.classList.remove('correct','wrong','locked');
+    let oh = o.getAttribute('onclick');
+    if (oh) o.onclick = new Function(oh.replace(/^handleFQ\(this,/, 'handleFQ(this,').replace(/\)$/, ')'));
+  });
+  document.getElementById('fq-1').classList.add('active');
+  document.getElementById('fq-result').classList.remove('show');
+  document.getElementById('fq-footer').style.display = 'flex';
+  document.getElementById('fq-counter').textContent = 'שאלה 1 / 10';
+  document.getElementById('fq-next-btn').textContent = 'הבא ►';
+  document.getElementById('fq-next-btn').disabled = true;
+}
+
+// ===== INIT =====
+document.getElementById('fb-arrow').style.display = 'none';
+</script>
+</body>
+</html>
