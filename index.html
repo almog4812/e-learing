@@ -44,6 +44,16 @@ body {
   min-height: 100vh;
 }
 
+/* Fix mixed Hebrew/English text rendering everywhere */
+p, li, div, td, th, span, .text-block, .quiz-q, .fq-q-text,
+.acc-body, .quiz-feedback, .treatment-panel, .tl-desc,
+.clinical-card li, .highlight, .lg-info-panel, .process-body,
+.flashcard-front, .flashcard-back, .case-text, .case-reveal,
+.sorting-result, .slide-body, .hpt-info {
+  unicode-bidi: plaintext;
+  text-align: right;
+}
+
 /* ===== TOP BAR ===== */
 .topbar {
   background: var(--white);
@@ -610,6 +620,9 @@ body {
   color: var(--gray-600);
   line-height: 1.7;
   transition: all 0.2s;
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: plaintext;
 }
 .lg-info-panel strong { color: var(--gray-800); }
 
@@ -885,11 +898,11 @@ body {
     <div class="quiz-opts">
       <div class="quiz-opt" onclick="handleQuiz(this,false,'q0')"><div class="opt-badge">א</div>אקו לב (Echocardiography) לשלילת הפרעה מבנית</div>
       <div class="quiz-opt" onclick="handleQuiz(this,false,'q0')"><div class="opt-badge">ב</div>קורטיזול בדם לשלילת פיאוכרומוציטומה (Pheochromocytoma)</div>
-      <div class="quiz-opt" onclick="handleQuiz(this,true,'q0')"><div class="opt-badge">ג</div>TSH (Thyroid-Stimulating Hormone) — הורמון מגרה תריס</div>
+      <div class="quiz-opt" onclick="handleQuiz(this,true,'q0')"><div class="opt-badge">ג</div>TSH (<span dir="ltr">Thyroid-Stimulating Hormone</span>) — הורמון מגרה תריס</div>
       <div class="quiz-opt" onclick="handleQuiz(this,false,'q0')"><div class="opt-badge">ד</div>ספירת דם (CBC — Complete Blood Count) לשלילת אנמיה</div>
     </div>
     <div class="quiz-feedback fb-correct" id="fb-q0-c">✅ <strong>נכון!</strong> הצירוף של ירידה במשקל עם תיאבון שמור, טכיקרדיה ורעד — תמונה קלאסית של תירוטוקסיקוזיס (Thyrotoxicosis). TSH הוא בדיקת הסקר הרגישה ביותר לתפקוד בלוטת התריס. TSH מדוכא יוביל לבדיקת FT4 (Free T4 — תירוקסין חופשי) ו-T3 להשלמת האבחנה.</div>
-    <div class="quiz-feedback fb-wrong" id="fb-q0-w">❌ הצירוף הקליני מחשיד מאוד לתירוטוקסיקוזיס (Thyrotoxicosis — חשיפה עודפת להורמוני תריס). TSH (Thyroid-Stimulating Hormone) הוא בדיקת הסקר הראשונה — רגיש, זול וזמין. פיאוכרומוציטומה נשלל עם קטכולאמינים בשתן, לא קורטיזול.</div>
+    <div class="quiz-feedback fb-wrong" id="fb-q0-w">❌ הצירוף הקליני מחשיד מאוד לתירוטוקסיקוזיס (Thyrotoxicosis — חשיפה עודפת להורמוני תריס). TSH (<span dir="ltr">Thyroid-Stimulating Hormone</span>) הוא בדיקת הסקר הראשונה — רגיש, זול וזמין. פיאוכרומוציטומה נשלל עם קטכולאמינים בשתן, לא קורטיזול.</div>
   </div>
 
   <div class="nav-row">
@@ -974,7 +987,7 @@ body {
           </g>
         </svg>
       </div>
-      <div class="lg-info-panel" id="lgInfoPanel">
+      <div class="lg-info-panel" id="lgInfoPanel" dir="rtl" style="text-align:right;unicode-bidi:plaintext;">
         <span style="color:var(--gray-400)">👆 לחצו על אחד ממרכיבי הציר לקבלת הסבר מפורט</span>
       </div>
     </div>
@@ -1009,7 +1022,7 @@ body {
 
 
   <div class="quiz-block">
-    <div class="quiz-q">❓ מטופל עם סרקואידוזיס מוכרת מגיע עם TSH (Thyroid-Stimulating Hormone — הורמון מגרה תריס)=8, FT4 (Free T4 — תירוקסין חופשי) תקין. לאחר מכן: TSH=12, FT4 נמוך. מהי האבחנה הסבירה ביותר, ומה יבדיל אותה מהיפותירואידיזם ראשוני קלאסי?</div>
+    <div class="quiz-q">❓ מטופל עם סרקואידוזיס מוכרת מגיע עם TSH (<span dir="ltr">Thyroid-Stimulating Hormone</span> — הורמון מגרה תריס)=8, FT4 (Free T4 — תירוקסין חופשי) תקין. לאחר מכן: TSH=12, FT4 נמוך. מהי האבחנה הסבירה ביותר, ומה יבדיל אותה מהיפותירואידיזם ראשוני קלאסי?</div>
     <div class="quiz-opts">
       <div class="quiz-opt" onclick="handleQuiz(this,false,'q1')"><div class="opt-badge">א</div>היפותירואידיזם משני — TSH יהיה נמוך עם FT4 נמוך</div>
       <div class="quiz-opt" onclick="handleQuiz(this,true,'q1')"><div class="opt-badge">ב</div>היפותירואידיזם ראשוני — הסרקואידוזיס עלולה לערב את הבלוטה; פרופיל הורמונלי זהה ל-Hashimoto</div>
@@ -1151,7 +1164,7 @@ body {
   </div>
 
   <div class="quiz-block">
-    <div class="quiz-q">❓ אישה בת 45 עם Graves מטופלת ב-Methimazole 20mg/d. לאחר 8 שבועות: TSH (Thyroid-Stimulating Hormone — הורמון מגרה תריס) עדיין מדוכא, FT4 (Free T4 — תירוקסין חופשי) תקין. מה ההמשך הנכון?</div>
+    <div class="quiz-q">❓ אישה בת 45 עם Graves מטופלת ב-Methimazole 20mg/d. לאחר 8 שבועות: TSH (<span dir="ltr">Thyroid-Stimulating Hormone</span> — הורמון מגרה תריס) עדיין מדוכא, FT4 (Free T4 — תירוקסין חופשי) תקין. מה ההמשך הנכון?</div>
     <div class="quiz-opts">
       <div class="quiz-opt" onclick="handleQuiz(this,false,'q3')"><div class="opt-badge">א</div>להחליף ל-PTU כי Methimazole לא עובד</div>
       <div class="quiz-opt" onclick="handleQuiz(this,true,'q3')"><div class="opt-badge">ב</div>להתבסס על FT4 לאיזון — TSH יישאר מדוכא חודשים ואינו מדד אמין בשלב זה</div>
@@ -1398,7 +1411,7 @@ body {
 
 
   <div class="quiz-block">
-    <div class="quiz-q">❓ גבר בן 72 עם AF (Atrial Fibrillation — פרפור פרוזדורים) חדש שאינו מגיב לקרדיוורסיה חשמלית. ה-TSH (Thyroid-Stimulating Hormone — הורמון מגרה תריס) מדוכא. הוחל Methimazole. מתי ניתן לצפות לחזרה לסינוס?</div>
+    <div class="quiz-q">❓ גבר בן 72 עם AF (Atrial Fibrillation — פרפור פרוזדורים) חדש שאינו מגיב לקרדיוורסיה חשמלית. ה-TSH (<span dir="ltr">Thyroid-Stimulating Hormone</span> — הורמון מגרה תריס) מדוכא. הוחל Methimazole. מתי ניתן לצפות לחזרה לסינוס?</div>
     <div class="quiz-opts">
       <div class="quiz-opt" onclick="handleQuiz(this,false,'q5')"><div class="opt-badge">א</div>מיידית עם תחילת ATD</div>
       <div class="quiz-opt" onclick="handleQuiz(this,false,'q5')"><div class="opt-badge">ב</div>אין טעם — AF בתירוטוקסיקוזיס הוא קבוע ודורש אבלציה</div>
@@ -1816,7 +1829,7 @@ body {
     </div>
   </div>
   <div class="quiz-block">
-    <div class="quiz-q">❓ מטופלת עם Hashimoto מטופלת ב-LT4 (Levothyroxine) 150 mcg/d. TSH (Thyroid-Stimulating Hormone — הורמון מגרה תריס)=9 mIU/L (גבוה). היא טוענת לנטילה קבועה. מה הסיבה השכיחה ביותר לצורך במינון גבוה?</div>
+    <div class="quiz-q">❓ מטופלת עם Hashimoto מטופלת ב-LT4 (Levothyroxine) 150 mcg/d. TSH (<span dir="ltr">Thyroid-Stimulating Hormone</span> — הורמון מגרה תריס)=9 mIU/L (גבוה). היא טוענת לנטילה קבועה. מה הסיבה השכיחה ביותר לצורך במינון גבוה?</div>
     <div class="quiz-opts">
       <div class="quiz-opt" onclick="handleQuiz(this,false,'q8')"><div class="opt-badge">א</div>נוגדני TPO גבוהים מנטרלים את ה-LT4</div>
       <div class="quiz-opt" onclick="handleQuiz(this,false,'q8')"><div class="opt-badge">ב</div>המינון אינו מספיק — יש להעלות ל-200 mcg</div>
@@ -1968,7 +1981,7 @@ body {
 
     <div class="fq-question" id="fq-4">
       <div class="fq-q-label">שאלה 4 מתוך 10</div>
-      <div class="fq-q-text">מטופל עם Hashimoto מגיע עם TSH (Thyroid-Stimulating Hormone — הורמון מגרה תריס)=15, FT4 (Free T4 — תירוקסין חופשי)=0.6 (נמוך). Cholesterol=280, CPK=420. מה צפוי להתנרמל עם טיפול ב-LT4 (Levothyroxine) בלבד?</div>
+      <div class="fq-q-text">מטופל עם Hashimoto מגיע עם TSH (<span dir="ltr">Thyroid-Stimulating Hormone</span> — הורמון מגרה תריס)=15, FT4 (Free T4 — תירוקסין חופשי)=0.6 (נמוך). Cholesterol=280, CPK=420. מה צפוי להתנרמל עם טיפול ב-LT4 (Levothyroxine) בלבד?</div>
       <div class="fq-opts">
         <div class="fq-opt" onclick="handleFQ(this,false,4)">Cholesterol בלבד — CPK ו-TSH הם מדדים עצמאיים</div>
         <div class="fq-opt" onclick="handleFQ(this,false,4)">CPK בלבד — Hypercholesterolemia נדרש Statin נוסף</div>
@@ -1979,7 +1992,7 @@ body {
 
     <div class="fq-question" id="fq-5">
       <div class="fq-q-label">שאלה 5 מתוך 10</div>
-      <div class="fq-q-text">אישה בת 30 עם Hashimoto מאוזן ב-LT4 (Levothyroxine) מגיעה בשליש ראשון להריון. TSH (Thyroid-Stimulating Hormone — הורמון מגרה תריס)=2.8. מה הצעד הנכון?</div>
+      <div class="fq-q-text">אישה בת 30 עם Hashimoto מאוזן ב-LT4 (Levothyroxine) מגיעה בשליש ראשון להריון. TSH (<span dir="ltr">Thyroid-Stimulating Hormone</span> — הורמון מגרה תריס)=2.8. מה הצעד הנכון?</div>
       <div class="fq-opts">
         <div class="fq-opt" onclick="handleFQ(this,false,5)">אין לשנות מינון — TSH תקין</div>
         <div class="fq-opt" onclick="handleFQ(this,true,5)">להגדיל מינון LT4 מיידית (9 מנות/שבוע במקום 7) — הצרכים עולים בהריון</div>
@@ -2012,7 +2025,7 @@ body {
 
     <div class="fq-question" id="fq-8">
       <div class="fq-q-label">שאלה 8 מתוך 10</div>
-      <div class="fq-q-text">גבר עם Toxic adenoma (TSH (Thyroid-Stimulating Hormone — הורמון מגרה תריס) מדוכא, FT4 (Free T4 — תירוקסין חופשי) גבוה, מוקד חם יחיד). הוא בן 35, בריא אחרת. מה הטיפול המועדף לאורך זמן?</div>
+      <div class="fq-q-text">גבר עם Toxic adenoma (TSH (<span dir="ltr">Thyroid-Stimulating Hormone</span> — הורמון מגרה תריס) מדוכא, FT4 (Free T4 — תירוקסין חופשי) גבוה, מוקד חם יחיד). הוא בן 35, בריא אחרת. מה הטיפול המועדף לאורך זמן?</div>
       <div class="fq-opts">
         <div class="fq-opt" onclick="handleFQ(this,false,8)">Methimazole לכל החיים — ATD יעיל ב-Toxic adenoma</div>
         <div class="fq-opt" onclick="handleFQ(this,false,8)">ניתוח — עדיף על RAI בגיל צעיר</div>
@@ -2330,10 +2343,10 @@ window.addEventListener('resize', () => {
 
 // ===== LABELED GRAPHIC =====
 const lgData = {
-  1: { title: '🧠 היפותלמוס', text: 'מפריש <strong>TRH (Thyrotropin-Releasing Hormone)</strong> בתגובה לקור, סטרס ורמות T3/T4 נמוכות. TRH עובר דרך מערכת הפורטל ההיפופיזלית ומגרה את ההיפופיזה להפריש TSH. גם סומטוסטטין, דופמין וגלוקוקורטיקואידים מעכבים את הפרשת TRH.' },
-  2: { title: '🫠 היפופיזה הקדמית', text: 'מפרישה <strong>TSH (Thyroid-Stimulating Hormone)</strong> בתגובה ל-TRH. TSH נקשר לקולטנו בבלוטת התריס ← גורם לסינתזה ושחרור T4/T3. כשרמות T3/T4 גבוהות — TSH מדוכא (משוב שלילי). <strong>TSH נמוך = יתר פעילות; TSH גבוה = תת-פעילות ראשונית.</strong>' },
-  3: { title: '🦋 בלוטת התריס', text: 'מייצרת בעיקר <strong>T4 (80%)</strong> ו-T3 (20%). T4 מומר ל-T3 הפעיל ברקמות ע"י Deiodinase. הסינתזה תלויה ב-<strong>יוד + TPO (Thyroid Peroxidase)</strong>. האיסתמוס מחבר את שתי האונות. Parafollicular C-cells מפרישות קלציטונין לוויסות סידן.' },
-  4: { title: '🔄 משוב שלילי (Negative Feedback)', text: '<strong>T3/T4 מדכאים ישירות</strong> הפרשת TSH מההיפופיזה ו-TRH מההיפותלמוס. זהו המנגנון הבסיסי לשמירת הומאוסטזיס. <strong>קליני:</strong> בהיפותירואידיזם ראשוני — T4 נמוך ← המשוב נעדר ← TSH עולה. ב-Graves — TRAb מגרים הקולטן ← ציר הבקרה מופרע לגמרי.' },
+  1: { title: '🧠 היפותלמוס', text: 'מפריש <strong>TRH (<span dir="ltr">Thyrotropin-Releasing Hormone</span>)</strong> בתגובה לקור, סטרס ורמות T3/T4 נמוכות. TRH עובר דרך מערכת הפורטל ההיפופיזלית ומגרה את ההיפופיזה להפריש TSH. גם סומטוסטטין, דופמין וגלוקוקורטיקואידים מעכבים את הפרשת TRH.' },
+  2: { title: '🫠 היפופיזה הקדמית', text: 'מפרישה <strong>TSH (<span dir="ltr">Thyroid-Stimulating Hormone</span>)</strong> בתגובה ל-TRH. TSH נקשר לקולטנו בבלוטת התריס ← גורם לסינתזה ושחרור T4/T3. כשרמות T3/T4 גבוהות — TSH מדוכא (משוב שלילי). <strong>TSH נמוך = יתר פעילות; TSH גבוה = תת-פעילות ראשונית.</strong>' },
+  3: { title: '🦋 בלוטת התריס', text: 'מייצרת בעיקר <strong>T4 (80%)</strong> ו-T3 (20%). T4 מומר ל-T3 הפעיל ברקמות ע"י <span dir="ltr">Deiodinase</span>. הסינתזה תלויה ב-<strong>יוד + TPO (<span dir="ltr">Thyroid Peroxidase</span>)</strong>. האיסתמוס מחבר את שתי האונות. <span dir="ltr">Parafollicular C-cells</span> מפרישות קלציטונין לוויסות סידן.' },
+  4: { title: '🔄 משוב שלילי (<span dir="ltr">Negative Feedback</span>)', text: '<strong>T3/T4 מדכאים ישירות</strong> הפרשת TSH מההיפופיזה ו-TRH מההיפותלמוס. זהו המנגנון הבסיסי לשמירת הומאוסטזיס. <strong>קליני:</strong> בהיפותירואידיזם ראשוני — T4 נמוך ← המשוב נעדר ← TSH עולה. ב-Graves — TRAb מגרים הקולטן ← ציר הבקרה מופרע לגמרי.' },
 };
 let currentLGDot = null;
 function showLGInfo(n, el) {
@@ -2355,6 +2368,8 @@ function showLGInfo(n, el) {
   panel.innerHTML = '<strong style="color:var(--orange-dark);font-size:15px;">' + d.title + '</strong><br><br>' + d.text;
   panel.style.background = 'var(--orange-light)';
   panel.style.borderTop = '2px solid var(--orange)';
+  panel.dir = 'rtl';
+  panel.style.textAlign = 'right';
 }
 
 // ===== FLASHCARDS =====
@@ -2363,7 +2378,7 @@ const fcCards = [
   { q: 'מהו מינון ה-Methimazole הרגיל לטיפול ב-Graves?', a: '10–20 mg × 2/d', d: 'בדרך כלל ניתן once daily. T½ = 6 שעות. מגיע ל-Euthyroidism תוך 6–8 שבועות.' },
   { q: 'מתי PTU עדיף על Methimazole?', a: 'שליש ראשון הריון + Thyroid Storm', d: 'PTU גם מעכב המרת T4←T3 בפריפריה. ב-Thyroid Storm: קריטי! בהריון שליש 2–3: חוזרים ל-Methimazole.' },
   { q: 'מהי תופעת הלוואי המסוכנת ביותר של ATD?', a: 'אגרנולוציטוזיס (0.3%)', d: 'חום + כאב גרון תחת ATD = הפסק מיד + CBC דחוף! לאחר אגרנולוציטוזיס ← לא חוזרים לאותה קבוצה.' },
-  { q: 'מה הנוגדן האופייני ל-Hashimoto thyroiditis?', a: 'Anti-TPO (TPO = Thyroid Peroxidase)', d: 'חיובי ב-90–95% ממקרי Hashimoto. גם Anti-Tg חיובי ב-60–80%. Anti-TPO חיובי גם ב-80% מ-Graves.' },
+  { q: 'מה הנוגדן האופייני ל-Hashimoto thyroiditis?', a: 'Anti-TPO (TPO = <span dir="ltr">Thyroid Peroxidase</span>)', d: 'חיובי ב-90–95% ממקרי Hashimoto. גם Anti-Tg חיובי ב-60–80%. Anti-TPO חיובי גם ב-80% מ-Graves.' },
   { q: 'מהו מינון ה-LT4 (Levothyroxine) להחלפה מלאה?', a: '~1.6 mcg/kg/d', d: 'דוגמה: 70 ק"ג ← כ-112 mcg/d. פתיחה בקשישים: 12.5–25 mcg/d. לקחת 30 דקות לפני ארוחה. להפריד 4 שעות מסידן, ברזל, PPI.' },
 ];
 let fcCurrent = 0;
