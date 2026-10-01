@@ -96,10 +96,39 @@ button{min-height:44px}
 </section>
 
 <section class="slide" data-title="טרומבוזיס עורקי וורידי" data-min="3">
-  <div class="section-header"><div class="section-badge">עקרונות</div><div class="section-title">טרומבוזיס עורקי וורידי: הבדלים עיקריים</div><div class="section-desc">הבדלים בהרכב הקריש ובהשלכותיהם על בחירת הטיפול האנטיתרומבוטי.</div></div>
-  <div class="card-grid"><div class="stat-card"><div class="stat-num">עורקי</div><div class="stat-label">זרימה מהירה</div><div class="stat-note">טסיות דומיננטיות, עם השתתפות מערכת הקרישה.</div></div><div class="stat-card teal"><div class="stat-num">ורידי</div><div class="stat-label">זרימה איטית</div><div class="stat-note">פיברין ותאי דם אדומים בולטים יותר; תפקיד הטסיות משני.</div></div><div class="stat-card blue"><div class="stat-num">3</div><div class="stat-label">קבוצות אנטיתרומבוטיות</div><div class="stat-note">נוגדי טסיות, נוגדי קרישה, פיברינוליטיים.</div></div><div class="stat-card"><div class="stat-num">יעד</div><div class="stat-label">למנוע או לטפל בקריש</div><div class="stat-note">הבחירה תלויה במנגנון ובסיטואציה הקלינית.</div></div></div>
-  <div class="table-wrap"><table class="compare"><thead><tr><th>מאפיין</th><th>טרומבוזיס עורקי</th><th>טרומבוזיס ורידי</th></tr></thead><tbody><tr><td>רכיב בולט</td><td>טסיות</td><td>מערכת הקרישה, פיברין ותאי דם אדומים</td></tr><tr><td>דגש תרופתי</td><td>נוגדי טסיות</td><td>נוגדי קרישה</td></tr><tr><td>דוגמאות מהחומר</td><td>תסמונת כלילית חריפה, שבץ/אירוע איסכמי חולף</td><td><span class="ltr">DVT</span>, תסחיף ריאתי</td></tr></tbody></table></div>
-  <div class="quiz-block"><div class="quiz-q">❓ מטופל מפתח קריש ורידי עמוק. איזו משפחת תרופות נמצאת במרכז הטיפול ?</div><div class="quiz-options"><button type="button" class="quiz-option" onclick="handleQuiz(this,false,'q1')">א. נוגדי טסיות בלבד, כי כל קריש מתחיל בטסיות</button><button type="button" class="quiz-option" onclick="handleQuiz(this,true,'q1')">ב. נוגדי קרישה, משום שבטרומבוזיס ורידי מערכת הקרישה דומיננטית</button><button type="button" class="quiz-option" onclick="handleQuiz(this,false,'q1')">ג. פיברינוליזה בכל מקרה ורידי</button><button type="button" class="quiz-option" onclick="handleQuiz(this,false,'q1')">ד. אין הבדל בין טיפול בטרומבוזיס עורקי לורידי</button></div><div class="feedback" id="q1fb"></div></div>
+  <div class="section-header"><div class="section-badge">עקרונות</div><div class="section-title">לפני שבוחרים תרופה: איזה סוג קריש זה?</div><div class="section-desc">ההבדל בין קריש עורקי לקריש ורידי עוזר להבין מדוע פעם מכוונים לטסיות ופעם למערכת הקרישה.</div></div>
+
+  <div class="callout info"><strong>כלל האצבע:</strong> בקריש <strong>עורקי</strong> הטסיות בולטות יותר → לכן נוגדי טסיות מרכזיים. בקריש <strong>ורידי</strong> פיברין ומערכת הקרישה בולטים יותר → לכן נוגדי קרישה מרכזיים.</div>
+
+  <div class="card-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+    <div class="stat-card" style="min-height:190px">
+      <div class="stat-num">עורקי</div>
+      <div class="stat-label">חשבו: טסיות</div>
+      <div class="stat-note" style="font-size:14px;margin-top:8px">הזרימה מהירה, והקריש עשיר יחסית בטסיות. לכן הטיפול מכוון לעיתים קרובות להפחתת שפעול ואגרגציית טסיות.</div>
+      <div class="pill" style="margin-top:12px">דוגמאות: ACS, שבץ / TIA</div>
+      <div style="margin-top:10px;font-weight:800;color:var(--orange-dark)">→ נוגדי טסיות</div>
+    </div>
+    <div class="stat-card teal" style="min-height:190px">
+      <div class="stat-num">ורידי</div>
+      <div class="stat-label">חשבו: פיברין + מערכת הקרישה</div>
+      <div class="stat-note" style="font-size:14px;margin-top:8px">הזרימה איטית יותר, ופיברין ותאי דם אדומים בולטים יותר. לכן הטיפול מכוון בעיקר למערכת הקרישה.</div>
+      <div class="pill" style="margin-top:12px;background:var(--teal-light);color:var(--teal)">דוגמאות: DVT, תסחיף ריאתי</div>
+      <div style="margin-top:10px;font-weight:800;color:var(--teal)">→ נוגדי קרישה</div>
+    </div>
+  </div>
+
+  <div class="text-block">
+    <h3>איך משתמשים בזה בשאלה קלינית?</h3>
+    <div class="timeline">
+      <div class="tl-item"><h4>1. מזהים את מיקום וסוג האירוע</h4><p>עורקי או ורידי?</p></div>
+      <div class="tl-item"><h4>2. שואלים מה דומיננטי בקריש</h4><p>טסיות, או מערכת הקרישה ופיברין?</p></div>
+      <div class="tl-item"><h4>3. מזה נגזרת משפחת התרופות המרכזית</h4><p>נוגדי טסיות באירועים עורקיים; נוגדי קרישה באירועים ורידיים.</p></div>
+    </div>
+  </div>
+
+  <div class="table-wrap"><table class="compare"><thead><tr><th>מאפיין</th><th>טרומבוזיס עורקי</th><th>טרומבוזיס ורידי</th></tr></thead><tbody><tr><td>מה בולט בקריש?</td><td>טסיות</td><td>פיברין ומערכת הקרישה</td></tr><tr><td>משפחת טיפול מרכזית</td><td>נוגדי טסיות</td><td>נוגדי קרישה</td></tr><tr><td>דוגמאות</td><td>תסמונת כלילית חריפה, שבץ / TIA</td><td><span class="ltr">DVT</span>, תסחיף ריאתי</td></tr></tbody></table></div>
+
+  <div class="quiz-block"><div class="quiz-q">❓ מטופל מפתח <span class="ltr">DVT</span>. מהו ההיגיון המרכזי בבחירת משפחת הטיפול?</div><div class="quiz-options"><button type="button" class="quiz-option" onclick="handleQuiz(this,false,'q1')">א. זה אירוע ורידי, ולכן הטסיות הן היעד העיקרי</button><button type="button" class="quiz-option" onclick="handleQuiz(this,true,'q1')">ב. זה אירוע ורידי, ולכן מערכת הקרישה היא היעד המרכזי</button><button type="button" class="quiz-option" onclick="handleQuiz(this,false,'q1')">ג. בכל סוג קריש בוחרים תמיד אותה משפחת תרופות</button><button type="button" class="quiz-option" onclick="handleQuiz(this,false,'q1')">ד. עצם נוכחות הקריש מחייבת פיברינוליזה</button></div><div class="feedback" id="q1fb"></div></div>
   <div class="nav-row"><button type="button" class="nav-btn nav-secondary" onclick="goTo(0)">→ הקודם</button><button type="button" class="nav-btn nav-primary" onclick="goTo(2)">הבא ←</button></div>
 </section>
 
